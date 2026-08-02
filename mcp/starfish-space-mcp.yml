@@ -1,0 +1,58 @@
+generated: '2026-08-02'
+method: searched
+source: https://www.starfishspace.com/wp-json/mcp
+status: published
+description: >-
+  Starfish Space serves a live Model Context Protocol server from its own host, via the WordPress
+  MCP adapter. The MCP namespace, the OAuth 2.1 authorization-server metadata and the
+  protected-resource metadata are all published anonymously and were fetched; the tool inventory
+  itself is auth-gated.
+servers:
+- name: mcp-oauth-server
+  transport: http
+  url: https://www.starfishspace.com/wp-json/mcp/mcp-oauth-server
+  methods: [POST, GET, DELETE]
+  auth: oauth2
+  primary: true
+- name: mcp-adapter-default-server
+  transport: http
+  url: https://www.starfishspace.com/wp-json/mcp/mcp-adapter-default-server
+  methods: [POST, GET, DELETE]
+  auth: wordpress-rest-cookie-or-application-password
+  primary: false
+oauth:
+  authorization_server_metadata: https://www.starfishspace.com/.well-known/oauth-authorization-server
+  protected_resource_metadata: https://www.starfishspace.com/.well-known/oauth-protected-resource
+  issuer: https://www.starfishspace.com
+  authorization_endpoint: https://www.starfishspace.com/oauth/authorize
+  token_endpoint: https://www.starfishspace.com/oauth/token
+  revocation_endpoint: https://www.starfishspace.com/oauth/revoke
+  grant_types_supported: [authorization_code, refresh_token]
+  code_challenge_methods_supported: [S256]
+  scopes_supported: [mcp]
+  token_endpoint_auth_methods_supported: [none]
+  client_id_metadata_document_supported: true
+tools:
+  status: gated
+  note: >-
+    tools/list and initialize were both attempted anonymously and returned HTTP 401. No tool list is
+    recorded here because none could be observed; the provider publishes no llms.txt tool list
+    either, so an authenticated introspection is required to enumerate tools and their inputSchemas.
+    Nothing was inferred. Because no tool names are known, no mcp/starfish-space-tool-crosswalk.yml
+    was written.
+x-evidence:
+- fetched: '2026-08-02'
+  url: https://www.starfishspace.com/wp-json/mcp
+  http_status: 200
+  content_type: application/json
+  file: starfish-space-mcp-routes.json
+- fetched: '2026-08-02'
+  url: https://www.starfishspace.com/wp-json/mcp/mcp-oauth-server
+  method: 'POST tools/list'
+  http_status: 401
+  body: '{"code":"mcp_unauthorized","message":"MCP authentication required.","data":{"status":401}}'
+- fetched: '2026-08-02'
+  url: https://www.starfishspace.com/wp-json/mcp/mcp-adapter-default-server
+  method: 'POST tools/list'
+  http_status: 401
+  body: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'

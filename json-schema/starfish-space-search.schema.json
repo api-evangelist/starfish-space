@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "search-result",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the object.",
+      "type": [
+        "integer",
+        "string"
+      ],
+      "context": [
+        "view",
+        "embed"
+      ],
+      "readonly": true
+    },
+    "title": {
+      "description": "The title for the object.",
+      "type": "string",
+      "context": [
+        "view",
+        "embed"
+      ],
+      "readonly": true
+    },
+    "url": {
+      "description": "URL to the object.",
+      "type": "string",
+      "format": "uri",
+      "context": [
+        "view",
+        "embed"
+      ],
+      "readonly": true
+    },
+    "type": {
+      "description": "Object type.",
+      "type": "string",
+      "enum": [
+        "post",
+        "term",
+        "post-format"
+      ],
+      "context": [
+        "view",
+        "embed"
+      ],
+      "readonly": true
+    },
+    "subtype": {
+      "description": "Object subtype.",
+      "type": "string",
+      "enum": [
+        "post",
+        "page",
+        "category",
+        "post_tag"
+      ],
+      "context": [
+        "view",
+        "embed"
+      ],
+      "readonly": true
+    }
+  }
+}

@@ -1,0 +1,53 @@
+generated: '2026-08-02'
+method: searched
+source: live probes of https://www.starfishspace.com/.well-known/*
+host: https://www.starfishspace.com
+note: >-
+  Probed against both www.starfishspace.com and starfishspace.com (identical results — the apex
+  redirects to www). The site is WordPress; 404 responses are HTML, and were rejected rather than
+  recorded as hits. No /.well-known/agent-card.json or /.well-known/agent.json was found, so no
+  a2a/ artifact was written.
+documents:
+- path: /.well-known/oauth-authorization-server
+  spec: RFC 8414
+  status: 200
+  content_type: application/json
+  file: starfish-space-oauth-authorization-server.json
+- path: /.well-known/oauth-protected-resource
+  spec: RFC 9728
+  status: 200
+  content_type: application/json
+  file: starfish-space-oauth-protected-resource.json
+- path: /.well-known/security.txt
+  spec: RFC 9116
+  status: 404
+- path: /.well-known/openid-configuration
+  spec: OpenID Connect Discovery 1.0
+  status: 404
+- path: /.well-known/api-catalog
+  spec: RFC 9727
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+- path: /.well-known/agent-card.json
+  spec: A2A 1.0.0
+  status: 404
+- path: /.well-known/agent.json
+  spec: A2A legacy (pre-0.3)
+  status: 404
+other_discovery:
+- path: /llms.txt
+  status: 404
+- path: /openapi.json
+  status: 404
+- path: /swagger.json
+  status: 404
+- path: /api-docs
+  status: 404
+- path: /robots.txt
+  status: 200
+- path: /wp-sitemap.xml
+  status: 200
+- path: /wp-json/
+  status: 200
+  note: WordPress REST API root — machine-readable route index for every namespace.

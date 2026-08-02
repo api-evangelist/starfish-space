@@ -1,0 +1,188 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "user",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the user.",
+      "type": "integer",
+      "context": [
+        "embed",
+        "view",
+        "edit"
+      ],
+      "readonly": true
+    },
+    "username": {
+      "description": "Login name for the user.",
+      "type": "string",
+      "context": [
+        "edit"
+      ],
+      "required": true
+    },
+    "name": {
+      "description": "Display name for the user.",
+      "type": "string",
+      "context": [
+        "embed",
+        "view",
+        "edit"
+      ]
+    },
+    "first_name": {
+      "description": "First name for the user.",
+      "type": "string",
+      "context": [
+        "edit"
+      ]
+    },
+    "last_name": {
+      "description": "Last name for the user.",
+      "type": "string",
+      "context": [
+        "edit"
+      ]
+    },
+    "email": {
+      "description": "The email address for the user.",
+      "type": "string",
+      "format": "email",
+      "context": [
+        "edit"
+      ],
+      "required": true
+    },
+    "url": {
+      "description": "URL of the user.",
+      "type": "string",
+      "format": "uri",
+      "context": [
+        "embed",
+        "view",
+        "edit"
+      ]
+    },
+    "description": {
+      "description": "Description of the user.",
+      "type": "string",
+      "context": [
+        "embed",
+        "view",
+        "edit"
+      ]
+    },
+    "link": {
+      "description": "Author URL of the user.",
+      "type": "string",
+      "format": "uri",
+      "context": [
+        "embed",
+        "view",
+        "edit"
+      ],
+      "readonly": true
+    },
+    "locale": {
+      "description": "Locale for the user.",
+      "type": "string",
+      "enum": [
+        "",
+        "en_US"
+      ],
+      "context": [
+        "edit"
+      ]
+    },
+    "nickname": {
+      "description": "The nickname for the user.",
+      "type": "string",
+      "context": [
+        "edit"
+      ]
+    },
+    "slug": {
+      "description": "An alphanumeric identifier for the user.",
+      "type": "string",
+      "context": [
+        "embed",
+        "view",
+        "edit"
+      ]
+    },
+    "registered_date": {
+      "description": "Registration date for the user.",
+      "type": "string",
+      "format": "date-time",
+      "context": [
+        "edit"
+      ],
+      "readonly": true
+    },
+    "roles": {
+      "description": "Roles assigned to the user.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "context": [
+        "edit"
+      ]
+    },
+    "password": {
+      "description": "Password for the user (never included).",
+      "type": "string",
+      "context": [],
+      "required": true
+    },
+    "capabilities": {
+      "description": "All capabilities assigned to the user.",
+      "type": "object",
+      "context": [
+        "edit"
+      ],
+      "readonly": true
+    },
+    "extra_capabilities": {
+      "description": "Any extra capabilities assigned to the user.",
+      "type": "object",
+      "context": [
+        "edit"
+      ],
+      "readonly": true
+    },
+    "meta": {
+      "description": "Meta fields.",
+      "type": "object",
+      "context": [
+        "view",
+        "edit"
+      ],
+      "properties": {
+        "persisted_preferences": {
+          "type": "object",
+          "title": "",
+          "description": "",
+          "default": [],
+          "context": [
+            "edit"
+          ],
+          "properties": {
+            "_modified": {
+              "description": "The date and time the preferences were updated.",
+              "type": "string",
+              "format": "date-time",
+              "readonly": false
+            }
+          },
+          "additionalProperties": true
+        }
+      }
+    },
+    "acf": {
+      "description": "ACF field data",
+      "type": "object",
+      "properties": []
+    }
+  }
+}

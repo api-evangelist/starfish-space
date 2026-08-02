@@ -1,23 +1,136 @@
 aid: starfish-space
 name: Starfish Space
-description: 'Starfish Space is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Starfish Space is a satellite-servicing company founded in 2019 by Trevor Bennett
+  and Austin Link and headquartered in the Seattle, Washington area (Tukwila). It builds Otter,
+  a small, low-cost, electrically propelled servicing vehicle that performs autonomous rendezvous,
+  proximity operations and docking (RPOD) with satellites that were never designed to be serviced —
+  extending their life, relocating them, or disposing of them at end of mission. Its Otter Pup
+  demonstration missions target the first-ever commercial satellite docking in low Earth orbit, and
+  the company has been awarded a $54.5M U.S. Space Force contract for a dedicated Otter servicing
+  vehicle. Starfish Space publishes no developer product API; the machine-readable surface catalogued
+  here is the public WordPress REST API and the OAuth-protected Model Context Protocol (MCP) server
+  served from starfishspace.com.'
+image: https://www.starfishspace.com/wp-content/uploads/2023/06/starfishspace-logo-fullcolor.png
 url: https://raw.githubusercontent.com/api-evangelist/starfish-space/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment-pipeline
 specificationVersion: '0.20'
 created: '2026-08-02'
 modified: '2026-08-02'
+x-enrichment:
+  date: '2026-08-02'
+  status: enriched
+  artifacts_added: 33
+  pass: local-v1
 tags:
 - Company
-apis: []
+- Aerospace
+- Space
+- Satellites
+- Satellite Servicing
+- Spacecraft
+- Space Robotics
+- Defense
+- Content Management
+- Model Context Protocol
+apis:
+- name: Starfish Space Website Content API
+  description: 'The public WordPress REST API served by Starfish Space at
+    https://www.starfishspace.com/wp-json/wp/v2. It exposes the content behind starfishspace.com —
+    news and press releases, pages (The Otter, Company, Missions, Careers, Contact), media,
+    taxonomies, users, comments and search. Read operations are available anonymously; write
+    operations require an authenticated WordPress user. This is a website content interface, not a
+    spacecraft, telemetry or mission-data API.'
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - Content Management
+  - WordPress
+  - News
+  - Media
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-wordpress-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: Overlay
+    url: overlays/starfish-space-wordpress-overlay.yaml
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- name: Starfish Space MCP Server
+  description: 'A live Model Context Protocol (MCP) server exposed by Starfish Space at
+    https://www.starfishspace.com/wp-json/mcp/mcp-oauth-server, served through the WordPress MCP
+    adapter. Access is OAuth 2.1 protected: the site publishes RFC 8414 authorization-server
+    metadata and RFC 9728 protected-resource metadata with a single `mcp` scope and PKCE (S256).
+    Anonymous initialize / tools/list calls return HTTP 401 mcp_unauthorized, so the live tool
+    inventory could not be introspected without credentials.'
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/mcp/mcp-oauth-server
+  tags:
+  - Model Context Protocol
+  - Agents
+  - OAuth
+  properties:
+  - type: MCPServer
+    url: mcp/starfish-space-mcp.yml
+  - type: OAuthScopes
+    url: scopes/starfish-space-scopes.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/starfish-space-agentic-access.yml
+- type: DomainSecurity
+  url: security/starfish-space-domain-security.yml
+- type: Authentication
+  url: authentication/starfish-space-authentication.yml
 - type: Website
-  url: https://forgeglobal.com/starfish-space_stock/
+  url: https://www.starfishspace.com/
+- type: Blog
+  url: https://www.starfishspace.com/news/
+- type: BlogRSS
+  url: https://www.starfishspace.com/feed/
+- type: Support
+  url: https://www.starfishspace.com/contact/
+- type: PrivacyPolicy
+  url: https://www.starfishspace.com/privacy-policy/
+- type: About
+  url: https://www.starfishspace.com/company/
+- type: Careers
+  url: https://www.starfishspace.com/careers/
+- type: Products
+  url: https://www.starfishspace.com/the-otter/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/starfish-space/
+- type: Twitter
+  url: https://twitter.com/StarfishSpace/
+- type: MCPServer
+  url: mcp/starfish-space-mcp.yml
+- type: WellKnown
+  url: well-known/starfish-space-well-known.yml
+- type: OAuthScopes
+  url: scopes/starfish-space-scopes.yml
+- type: Conventions
+  url: conventions/starfish-space-conventions.yml
+- type: ErrorCatalog
+  url: errors/starfish-space-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/starfish-space-lifecycle.yml
+- type: Conformance
+  url: conformance/starfish-space-conformance.yml
+- type: DataModel
+  url: data-model/starfish-space-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/starfish-space-llms.txt
+- type: Overlay
+  url: overlays/starfish-space-wordpress-overlay.yaml

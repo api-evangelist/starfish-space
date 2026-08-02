@@ -1,0 +1,49 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/starfish-space-wordpress-openapi.yml
+format: wordpress-rest
+rfc9457: false
+description: >-
+  The Starfish Space WordPress REST API does not use RFC 9457 problem+json. It returns a WordPress
+  REST error envelope as application/json. The envelope shape and the two codes below were observed
+  verbatim on live requests to this host; the remaining entries are the documented status classes
+  every operation in the derived OpenAPI declares.
+envelope:
+  content_type: application/json
+  fields:
+    code: machine-readable error code string
+    message: human-readable error message
+    data.status: HTTP status code, repeated in the body
+  example: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+  schema: openapi/starfish-space-wordpress-openapi.yml#/components/schemas/RestError
+problems:
+- status: 401
+  code: mcp_unauthorized
+  title: MCP authentication required
+  observed: true
+  source_operation: https://www.starfishspace.com/wp-json/mcp/mcp-oauth-server
+  remediation: >-
+    Obtain an OAuth 2.1 access token with the `mcp` scope from
+    https://www.starfishspace.com/oauth/token (authorization_code + PKCE S256) and present it as a
+    Bearer token in the Authorization header.
+- status: 401
+  code: rest_forbidden
+  title: Not allowed for the current user
+  observed: true
+  source_operation: https://www.starfishspace.com/wp-json/mcp/mcp-adapter-default-server
+  remediation: Authenticate as a WordPress user with sufficient capabilities.
+- status: 400
+  code: rest_invalid_param
+  title: Invalid parameter
+  observed: false
+  note: declared on every operation in the derived OpenAPI
+- status: 403
+  code: rest_forbidden
+  title: Not allowed for the current user
+  observed: false
+  note: declared on every operation in the derived OpenAPI
+- status: 404
+  code: rest_no_route
+  title: No route matched the request
+  observed: false
+  note: declared on every operation in the derived OpenAPI

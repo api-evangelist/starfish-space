@@ -1,0 +1,45 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Starfish Space Website Content API
+  version: 1.0.0
+extends: openapi/starfish-space-wordpress-openapi.yml
+x-generated: '2026-08-02'
+x-method: generated
+x-source: apis.yml + repo artifacts
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: starfish-space
+    x-apievangelist-enriched: '2026-08-02'
+    x-apievangelist-contract-origin: >-
+      Derived from the WordPress REST route index at /wp-json/wp/v2 and the item JSON Schemas
+      returned by HTTP OPTIONS. The provider publishes no OpenAPI of its own.
+    x-apievangelist-surface: website-content
+    x-apievangelist-note: >-
+      This is the content API behind starfishspace.com. It is not a spacecraft, telemetry,
+      rendezvous or mission-data API; Starfish Space publishes no such API.
+- target: $.info
+  update:
+    x-artifacts:
+      authentication: authentication/starfish-space-authentication.yml
+      conventions: conventions/starfish-space-conventions.yml
+      errors: errors/starfish-space-problem-types.yml
+      lifecycle: lifecycle/starfish-space-lifecycle.yml
+      conformance: conformance/starfish-space-conformance.yml
+      data_model: data-model/starfish-space-data-model.yml
+      agentic_access: agentic-access/starfish-space-agentic-access.yml
+      well_known: well-known/starfish-space-well-known.yml
+      mcp: mcp/starfish-space-mcp.yml
+      skills: skills/_index.yml
+- target: $.servers
+  update:
+  - url: https://www.starfishspace.com/wp-json
+    description: Production
+    x-verified: '2026-08-02'
+    x-anonymous-read: true
+- target: $.components.securitySchemes
+  update:
+    x-apievangelist-note: >-
+      Read operations require no credential. The OAuth 2.1 authorization server on this host
+      (PKCE S256, scope `mcp`) guards the MCP endpoint, not wp/v2 — see
+      scopes/starfish-space-scopes.yml.

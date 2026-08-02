@@ -1,0 +1,23 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/starfish-space-wordpress-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: WordPress application password (username + application password).
+  sources:
+  - openapi/starfish-space-wordpress-openapi.yml
+- name: cookieNonce
+  type: apiKey
+  in: header
+  parameter: X-WP-Nonce
+  description: WordPress cookie authentication nonce, for same-origin requests.
+  sources:
+  - openapi/starfish-space-wordpress-openapi.yml

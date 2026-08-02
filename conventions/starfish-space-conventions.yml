@@ -1,0 +1,91 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/starfish-space-wordpress-openapi.yml
+docs: https://www.starfishspace.com/wp-json/
+description: >-
+  Cross-cutting request/response semantics of the Starfish Space WordPress REST API, derived from
+  the API's own route index and OPTIONS schemas plus observed live responses. Starfish Space
+  publishes no developer documentation of its own, so nothing here is quoted from a provider docs
+  page — every convention below was observed on the live API.
+authentication:
+  style: none-for-read
+  read: anonymous
+  write: WordPress application password (HTTP Basic) or cookie + X-WP-Nonce header
+  reference: authentication/starfish-space-authentication.yml
+  oauth: >-
+    OAuth 2.1 (authorization_code + PKCE S256) exists on this host but guards the MCP server only,
+    not the wp/v2 REST API. See scopes/starfish-space-scopes.yml.
+idempotency:
+  supported: false
+  note: >-
+    No Idempotency-Key header or equivalent appears in any of the 225 operations, and WordPress core
+    ships no idempotency contract. No `Idempotency` pointer is emitted for this provider.
+pagination:
+  style: page-number
+  request_params:
+  - name: page
+    in: query
+    default: 1
+    minimum: 1
+  - name: per_page
+    in: query
+    default: 10
+    minimum: 1
+    maximum: 100
+  - name: offset
+    in: query
+    note: alternative to page on most collection routes
+  - name: order
+    in: query
+    enum: [asc, desc]
+  - name: orderby
+    in: query
+  response_headers:
+  - X-WP-Total
+  - X-WP-TotalPages
+  link_header: true
+  note: RFC 8288 Link header carries rel="next" / rel="prev".
+field_selection:
+  sparse_fields:
+    param: _fields
+    note: comma-separated list of top-level fields to return, e.g. ?_fields=id,slug,link
+  embedding:
+    param: _embed
+    note: inlines linked resources (author, terms, featured media) under _embedded
+  context:
+    param: context
+    enum: [view, embed, edit]
+    default: view
+    note: determines which fields are present in the response
+filtering:
+  search_param: search
+  common_filters: [include, exclude, slug, status, after, before, modified_after, modified_before, author, categories, tags]
+versioning:
+  scheme: uri-path
+  current: wp/v2
+  base: https://www.starfishspace.com/wp-json
+  discovery: >-
+    GET /wp-json/ returns the live namespace list; GET /wp-json/wp/v2 returns the full route index
+    with argument schemas; HTTP OPTIONS on any collection route returns that resource's JSON Schema.
+  reference: lifecycle/starfish-space-lifecycle.yml
+error_envelope:
+  format: wordpress-rest
+  rfc9457: false
+  content_type: application/json
+  shape: '{"code": "<string>", "message": "<string>", "data": {"status": <int>}}'
+  reference: errors/starfish-space-problem-types.yml
+request_tracing:
+  request_id_header: null
+  note: no request-correlation header observed on live responses
+rate_limiting:
+  documented: false
+  headers_observed: []
+  note: >-
+    No rate-limit headers were observed and no rate-limit policy is published. The site is behind
+    WP Engine's cache plugin and Wordfence, which may throttle independently of any published rule.
+method_override:
+  header: X-HTTP-Method-Override
+  note: WordPress supports POST + X-HTTP-Method-Override for clients that cannot send PUT/DELETE.
+batch:
+  path: /batch/v1
+  note: several wp/v2 routes advertise allow_batch.v1 = true in the route index

@@ -1,0 +1,28 @@
+generated: '2026-08-02'
+method: searched
+source: https://www.starfishspace.com/.well-known/oauth-authorization-server
+docs: https://www.starfishspace.com/.well-known/oauth-protected-resource
+note: >-
+  Scopes come from the provider's own RFC 8414 authorization-server metadata and RFC 9728
+  protected-resource metadata, not from an OpenAPI. The WordPress REST API itself declares no oauth2
+  security scheme; OAuth here guards the MCP server only.
+schemes:
+- name: mcp-oauth-server
+  source: https://www.starfishspace.com/.well-known/oauth-authorization-server
+  protected_resource: https://www.starfishspace.com/wp-json/mcp/mcp-oauth-server
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.starfishspace.com/oauth/authorize
+    tokenUrl: https://www.starfishspace.com/oauth/token
+    revocationUrl: https://www.starfishspace.com/oauth/revoke
+    pkce: S256
+scopes:
+- scope: mcp
+  description: >-
+    The single scope advertised by the Starfish Space authorization server; grants access to the
+    MCP protected resource at /wp-json/mcp/mcp-oauth-server. The provider publishes no further
+    scope breakdown.
+  flows: [authorizationCode]
+  sources:
+  - https://www.starfishspace.com/.well-known/oauth-authorization-server
+  - https://www.starfishspace.com/.well-known/oauth-protected-resource

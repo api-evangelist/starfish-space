@@ -1,0 +1,64 @@
+generated: '2026-08-02'
+method: derived
+source: >-
+  well-known/starfish-space-oauth-authorization-server.json,
+  well-known/starfish-space-oauth-protected-resource.json,
+  openapi/starfish-space-wordpress-openapi.yml
+standards:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    RFC 8414 authorization-server metadata published at /.well-known/oauth-authorization-server with
+    authorization_code + refresh_token grants (HTTP 200, fetched 2026-08-02).
+- id: rfc8414-authorization-server-metadata
+  conforms: true
+  evidence: /.well-known/oauth-authorization-server returns valid JSON metadata (200).
+- id: rfc9728-protected-resource-metadata
+  conforms: true
+  evidence: >-
+    /.well-known/oauth-protected-resource returns resource + authorization_servers +
+    bearer_methods_supported + scopes_supported (200).
+- id: rfc7636-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported = ["S256"].
+- id: mcp
+  conforms: true
+  evidence: >-
+    Live MCP endpoints at /wp-json/mcp/mcp-oauth-server and /wp-json/mcp/mcp-adapter-default-server;
+    JSON-RPC calls answered with an MCP-specific 401 (mcp_unauthorized) rather than a generic 404.
+- id: openid-connect
+  conforms: false
+  evidence: /.well-known/openid-configuration returned 404.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors are the WordPress REST envelope as application/json, not application/problem+json.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returned 404.
+- id: rfc9727-api-catalog
+  conforms: false
+  evidence: /.well-known/api-catalog returned 404.
+- id: a2a
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json both returned 404.
+- id: rfc8288-web-linking
+  conforms: true
+  evidence: collection responses paginate with a Link header and X-WP-Total / X-WP-TotalPages.
+- id: json-schema
+  conforms: true
+  evidence: >-
+    HTTP OPTIONS on each wp/v2 collection route returns a JSON Schema for the resource; 11 were
+    harvested verbatim into json-schema/.
+- id: idempotency
+  conforms: false
+  evidence: no Idempotency-Key header or equivalent in any of the 225 operations.
+- id: soc2
+  conforms: false
+  evidence: no trust center or certification page found (probe-security-programs.py — no hit).
+compliance_program:
+  published: false
+  note: >-
+    No SOC 2 / ISO 27001 / FedRAMP / CMMC posture is published on the public site, so no
+    `Compliance` or `TrustCenter` pointer is emitted. Note that as a U.S. Space Force and NASA
+    contractor the company is likely subject to such regimes privately; absence here means "not
+    published", not "not held".

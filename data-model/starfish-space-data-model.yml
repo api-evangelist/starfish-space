@@ -1,0 +1,113 @@
+generated: '2026-08-02'
+method: derived
+source: >-
+  json-schema/*.schema.json (harvested verbatim via HTTP OPTIONS on each wp/v2 collection route),
+  openapi/starfish-space-wordpress-openapi.yml
+description: >-
+  Entity-relationship graph of the Starfish Space WordPress REST API, derived from the id-reference
+  fields present in the JSON Schemas the API itself publishes. Ids are integers; there are no
+  string id-prefixes in this data model.
+id_style: integer
+entities:
+- name: post
+  schema: json-schema/starfish-space-posts.schema.json
+  collection: /wp/v2/posts
+  operations: [listPosts, getPostsById, createPosts, updatePostsById, deletePostsById]
+  description: News items and press releases published on starfishspace.com.
+  relationships:
+  - type: belongs_to
+    target: user
+    via: author
+  - type: has_one
+    target: attachment
+    via: featured_media
+  - type: has_many
+    target: category
+    via: categories
+  - type: has_many
+    target: tag
+    via: tags
+  - type: has_many
+    target: comment
+    via: post
+    inverse: true
+- name: page
+  schema: json-schema/starfish-space-pages.schema.json
+  collection: /wp/v2/pages
+  operations: [listPages, getPagesById, createPages, updatePagesById, deletePagesById]
+  description: Static site pages — The Otter, Company, Missions, Careers, Contact, Climate, Privacy Policy.
+  relationships:
+  - type: belongs_to
+    target: user
+    via: author
+  - type: has_one
+    target: attachment
+    via: featured_media
+  - type: belongs_to
+    target: page
+    via: parent
+- name: attachment
+  schema: json-schema/starfish-space-media.schema.json
+  collection: /wp/v2/media
+  operations: [listMedia, getMediaById, createMedia, updateMediaById, deleteMediaById]
+  description: Media library items — mission imagery, spacecraft renders, logos, team photos.
+  relationships:
+  - type: belongs_to
+    target: user
+    via: author
+  - type: belongs_to
+    target: post
+    via: post
+- name: category
+  schema: json-schema/starfish-space-categories.schema.json
+  collection: /wp/v2/categories
+  operations: [listCategories, getCategoriesById, createCategories, updateCategoriesById, deleteCategoriesById]
+  relationships:
+  - type: belongs_to
+    target: category
+    via: parent
+  - type: belongs_to
+    target: taxonomy
+    via: taxonomy
+- name: tag
+  schema: json-schema/starfish-space-tags.schema.json
+  collection: /wp/v2/tags
+  operations: [listTags, getTagsById, createTags, updateTagsById, deleteTagsById]
+  relationships:
+  - type: belongs_to
+    target: taxonomy
+    via: taxonomy
+- name: comment
+  schema: json-schema/starfish-space-comments.schema.json
+  collection: /wp/v2/comments
+  relationships:
+  - type: belongs_to
+    target: post
+    via: post
+  - type: belongs_to
+    target: user
+    via: author
+  - type: belongs_to
+    target: comment
+    via: parent
+- name: user
+  schema: json-schema/starfish-space-users.schema.json
+  collection: /wp/v2/users
+  description: Site authors. Read access to this collection is restricted on this install.
+- name: type
+  schema: json-schema/starfish-space-types.schema.json
+  collection: /wp/v2/types
+- name: status
+  schema: json-schema/starfish-space-statuses.schema.json
+  collection: /wp/v2/statuses
+- name: taxonomy
+  schema: json-schema/starfish-space-taxonomies.schema.json
+  collection: /wp/v2/taxonomies
+- name: search-result
+  schema: json-schema/starfish-space-search.schema.json
+  collection: /wp/v2/search
+  description: Polymorphic search projection across posts and pages.
+embedding:
+  note: >-
+    Any relationship above can be inlined in one request with the `_embed` query parameter, which
+    returns the linked user / attachment / term objects under `_embedded`.
