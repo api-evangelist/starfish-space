@@ -36,39 +36,13 @@ tags:
 - Content Management
 - Model Context Protocol
 apis:
-- name: Starfish Space Website Content API
-  description: 'The public WordPress REST API served by Starfish Space at
-    https://www.starfishspace.com/wp-json/wp/v2. It exposes the content behind starfishspace.com —
-    news and press releases, pages (The Otter, Company, Missions, Careers, Contact), media,
-    taxonomies, users, comments and search. Read operations are available anonymously; write
-    operations require an authenticated WordPress user. This is a website content interface, not a
-    spacecraft, telemetry or mission-data API.'
-  humanURL: https://www.starfishspace.com/
-  baseURL: https://www.starfishspace.com/wp-json/wp/v2
-  tags:
-  - Content Management
-  - WordPress
-  - News
-  - Media
-  - Search
-  properties:
-  - type: OpenAPI
-    url: openapi/starfish-space-wordpress-openapi.yml
-  - type: JSONSchema
-    url: json-schema/starfish-space-posts.schema.json
-  - type: Overlay
-    url: overlays/starfish-space-wordpress-overlay.yaml
-  - type: ErrorCatalog
-    url: errors/starfish-space-problem-types.yml
-  - type: DataModel
-    url: data-model/starfish-space-data-model.yml
 - name: Starfish Space MCP Server
-  description: 'A live Model Context Protocol (MCP) server exposed by Starfish Space at
-    https://www.starfishspace.com/wp-json/mcp/mcp-oauth-server, served through the WordPress MCP
-    adapter. Access is OAuth 2.1 protected: the site publishes RFC 8414 authorization-server
-    metadata and RFC 9728 protected-resource metadata with a single `mcp` scope and PKCE (S256).
-    Anonymous initialize / tools/list calls return HTTP 401 mcp_unauthorized, so the live tool
-    inventory could not be introspected without credentials.'
+  description: >-
+    A live Model Context Protocol (MCP) server exposed by Starfish Space at https://www.starfishspace.com/wp-json/mcp/mcp-oauth-server,
+    served through the WordPress MCP adapter. Access is OAuth 2.1 protected: the site publishes RFC 8414
+    authorization-server metadata and RFC 9728 protected-resource metadata with a single `mcp` scope and
+    PKCE (S256). Anonymous initialize / tools/list calls return HTTP 401 mcp_unauthorized, so the live
+    tool inventory could not be introspected without credentials.
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/mcp/mcp-oauth-server
   tags:
@@ -80,6 +54,550 @@ apis:
     url: mcp/starfish-space-mcp.yml
   - type: OAuthScopes
     url: scopes/starfish-space-scopes.yml
+- aid: starfish-space:starfish-space-block-directory-api
+  name: Starfish Space Block Directory API
+  description: Block directory search.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - block-directory
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-block-directory-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-block-patterns-api
+  name: Starfish Space Block Patterns API
+  description: Registered block patterns.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - block-patterns
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-block-patterns-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-block-renderer-api
+  name: Starfish Space Block Renderer API
+  description: block-renderer routes.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - block-renderer
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-block-renderer-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-block-types-api
+  name: Starfish Space Block Types API
+  description: Registered block types.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - block-types
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-block-types-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-blocks-api
+  name: Starfish Space Blocks API
+  description: Reusable editor blocks.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - blocks
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-blocks-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-categories-api
+  name: Starfish Space Categories API
+  description: Post categories.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - categories
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-categories-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-comments-api
+  name: Starfish Space Comments API
+  description: Comments on site content.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - comments
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-comments-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-font-collections-api
+  name: Starfish Space Font Collections API
+  description: font-collections routes.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - font-collections
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-font-collections-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-font-families-api
+  name: Starfish Space Font Families API
+  description: Registered font families.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - font-families
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-font-families-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-global-styles-api
+  name: Starfish Space Global Styles API
+  description: Global styles.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - global-styles
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-global-styles-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-icons-api
+  name: Starfish Space Icons API
+  description: icons routes.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - icons
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-icons-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-media-api
+  name: Starfish Space Media API
+  description: Media library attachments (images, documents).
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - media
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-media-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-menu-items-api
+  name: Starfish Space Menu Items API
+  description: Navigation menu items.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - menu-items
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-menu-items-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-menu-locations-api
+  name: Starfish Space Menu Locations API
+  description: Theme menu locations.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - menu-locations
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-menu-locations-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-menus-api
+  name: Starfish Space Menus API
+  description: Navigation menus.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - menus
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-menus-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-navigation-api
+  name: Starfish Space Navigation API
+  description: Navigation menus.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - navigation
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-navigation-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-pages-api
+  name: Starfish Space Pages API
+  description: Static pages (The Otter, Company, Missions, Careers, Contact).
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - pages
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-pages-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-pattern-directory-api
+  name: Starfish Space Pattern Directory API
+  description: Pattern directory.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - pattern-directory
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-pattern-directory-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-plugins-api
+  name: Starfish Space Plugins API
+  description: Installed plugins.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - plugins
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-plugins-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-posts-api
+  name: Starfish Space Posts API
+  description: Blog/news posts published on starfishspace.com.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - posts
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-posts-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-search-api
+  name: Starfish Space Search API
+  description: Cross-content search.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - search
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-search-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-settings-api
+  name: Starfish Space Settings API
+  description: Site settings.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - settings
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-settings-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-sidebars-api
+  name: Starfish Space Sidebars API
+  description: Widget areas.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - sidebars
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-sidebars-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-statuses-api
+  name: Starfish Space Statuses API
+  description: Registered post statuses.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - statuses
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-statuses-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-tags-api
+  name: Starfish Space Tags API
+  description: Post tags.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - tags
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-tags-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-taxonomies-api
+  name: Starfish Space Taxonomies API
+  description: Registered taxonomies.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - taxonomies
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-taxonomies-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-template-parts-api
+  name: Starfish Space Template Parts API
+  description: Block theme template parts.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - template-parts
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-template-parts-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-templates-api
+  name: Starfish Space Templates API
+  description: Block theme templates.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - templates
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-templates-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-themes-api
+  name: Starfish Space Themes API
+  description: Installed themes.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - themes
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-themes-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-types-api
+  name: Starfish Space Types API
+  description: Registered content types.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - types
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-types-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-users-api
+  name: Starfish Space Users API
+  description: Site authors.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - users
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-users-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-widget-types-api
+  name: Starfish Space Widget Types API
+  description: Available widget types.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - widget-types
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-widget-types-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-widgets-api
+  name: Starfish Space Widgets API
+  description: Widgets.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - widgets
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-widgets-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
+- aid: starfish-space:starfish-space-wp-pattern-category-api
+  name: Starfish Space Wp Pattern Category API
+  description: wp_pattern_category routes.
+  humanURL: https://www.starfishspace.com/
+  baseURL: https://www.starfishspace.com/wp-json/wp/v2
+  tags:
+  - wp_pattern_category
+  properties:
+  - type: OpenAPI
+    url: openapi/starfish-space-wp-pattern-category-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/starfish-space-posts.schema.json
+  - type: ErrorCatalog
+    url: errors/starfish-space-problem-types.yml
+  - type: DataModel
+    url: data-model/starfish-space-data-model.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
