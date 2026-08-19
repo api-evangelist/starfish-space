@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Starfish Space Website Content API (WordPress REST v2) Block Directory API",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "block-directory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List block directory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/block-directory/search",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in result set."
+              },
+              {
+                "name": "term",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to blocks matching the search term."
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of block directory from the Starfish Space WordPress REST API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

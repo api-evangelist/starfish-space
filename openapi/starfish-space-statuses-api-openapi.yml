@@ -1,0 +1,218 @@
+openapi: 3.2.0
+info:
+  title: Starfish Space Website Content API (WordPress REST v2) Statuses API
+  version: '2'
+  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
+
+
+    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  contact:
+    name: Starfish Space
+    url: https://www.starfishspace.com/contact/
+  x-derived-from:
+  - https://www.starfishspace.com/wp-json/wp/v2
+  - https://www.starfishspace.com/wp-json/wp/v2/{resource} (HTTP OPTIONS)
+servers:
+- url: https://www.starfishspace.com/wp-json
+  description: Production
+tags:
+- name: statuses
+  description: Registered post statuses.
+paths:
+  /wp/v2/statuses:
+    get:
+      operationId: listStatuses
+      tags:
+      - statuses
+      summary: List statuses
+      description: Retrieve a collection of statuses from the Starfish Space WordPress REST API.
+      parameters:
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Status'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+  /wp/v2/statuses/{status}:
+    get:
+      operationId: getStatusesByStatus
+      tags:
+      - statuses
+      summary: Retrieve a single statuse
+      description: Retrieve a single statuse by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: status
+        in: path
+        required: true
+        description: WordPress route parameter status.
+        schema:
+          type: string
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+components:
+  schemas:
+    RestError:
+      title: rest-error
+      type: object
+      description: WordPress REST API error envelope, as returned by this API.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+    Status:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: status
+      type: object
+      properties:
+        name:
+          description: The title for the status.
+          type: string
+          context:
+          - embed
+          - view
+          - edit
+          readonly: true
+        private:
+          description: Whether posts with this status should be private.
+          type: boolean
+          context:
+          - edit
+          readonly: true
+        protected:
+          description: Whether posts with this status should be protected.
+          type: boolean
+          context:
+          - edit
+          readonly: true
+        public:
+          description: Whether posts of this status should be shown in the front end of the site.
+          type: boolean
+          context:
+          - view
+          - edit
+          readonly: true
+        queryable:
+          description: Whether posts with this status should be publicly-queryable.
+          type: boolean
+          context:
+          - view
+          - edit
+          readonly: true
+        show_in_list:
+          description: Whether to include posts in the edit listing for their post type.
+          type: boolean
+          context:
+          - edit
+          readonly: true
+        slug:
+          description: An alphanumeric identifier for the status.
+          type: string
+          context:
+          - embed
+          - view
+          - edit
+          readonly: true
+        date_floating:
+          description: Whether posts of this status may have floating published dates.
+          type: boolean
+          context:
+          - view
+          - edit
+          readonly: true
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application password (username + application password).
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress cookie authentication nonce, for same-origin requests.

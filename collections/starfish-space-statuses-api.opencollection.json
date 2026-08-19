@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Starfish Space Website Content API (WordPress REST v2) Statuses API",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "statuses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List statuses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/statuses",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of statuses from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single statuse",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/statuses/:status",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter status."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single statuse by route parameter from the Starfish Space WordPress REST API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

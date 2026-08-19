@@ -1,0 +1,220 @@
+openapi: 3.2.0
+info:
+  title: Starfish Space Website Content API (WordPress REST v2) Search API
+  version: '2'
+  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
+
+
+    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  contact:
+    name: Starfish Space
+    url: https://www.starfishspace.com/contact/
+  x-derived-from:
+  - https://www.starfishspace.com/wp-json/wp/v2
+  - https://www.starfishspace.com/wp-json/wp/v2/{resource} (HTTP OPTIONS)
+servers:
+- url: https://www.starfishspace.com/wp-json
+  description: Production
+tags:
+- name: search
+  description: Cross-content search.
+paths:
+  /wp/v2/search:
+    get:
+      operationId: listSearch
+      tags:
+      - search
+      summary: List search
+      description: Retrieve a collection of search from the Starfish Space WordPress REST API.
+      parameters:
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          default: view
+      - name: page
+        in: query
+        required: false
+        description: Current page of the collection.
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+      - name: per_page
+        in: query
+        required: false
+        description: Maximum number of items to be returned in result set.
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+      - name: search
+        in: query
+        required: false
+        description: Limit results to those matching a string.
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: false
+        description: Limit results to items of an object type.
+        schema:
+          default: post
+          type: string
+          enum:
+          - post
+          - term
+          - post-format
+      - name: subtype
+        in: query
+        required: false
+        description: Limit results to items of one or more object subtypes.
+        schema:
+          default: any
+          type: array
+          items:
+            enum:
+            - post
+            - page
+            - category
+            - post_tag
+            - any
+            type: string
+      - name: exclude
+        in: query
+        required: false
+        description: Ensure result set excludes specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: include
+        in: query
+        required: false
+        description: Limit result set to specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchResult'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+components:
+  schemas:
+    SearchResult:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: search-result
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object.
+          type:
+          - integer
+          - string
+          context:
+          - view
+          - embed
+          readonly: true
+        title:
+          description: The title for the object.
+          type: string
+          context:
+          - view
+          - embed
+          readonly: true
+        url:
+          description: URL to the object.
+          type: string
+          format: uri
+          context:
+          - view
+          - embed
+          readonly: true
+        type:
+          description: Object type.
+          type: string
+          enum:
+          - post
+          - term
+          - post-format
+          context:
+          - view
+          - embed
+          readonly: true
+        subtype:
+          description: Object subtype.
+          type: string
+          enum:
+          - post
+          - page
+          - category
+          - post_tag
+          context:
+          - view
+          - embed
+          readonly: true
+    RestError:
+      title: rest-error
+      type: object
+      description: WordPress REST API error envelope, as returned by this API.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application password (username + application password).
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress cookie authentication nonce, for same-origin requests.

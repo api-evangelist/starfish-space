@@ -1,0 +1,224 @@
+openapi: 3.2.0
+info:
+  title: Starfish Space Website Content API (WordPress REST v2) Block Types API
+  version: '2'
+  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
+
+
+    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  contact:
+    name: Starfish Space
+    url: https://www.starfishspace.com/contact/
+  x-derived-from:
+  - https://www.starfishspace.com/wp-json/wp/v2
+  - https://www.starfishspace.com/wp-json/wp/v2/{resource} (HTTP OPTIONS)
+servers:
+- url: https://www.starfishspace.com/wp-json
+  description: Production
+tags:
+- name: block-types
+  description: Registered block types.
+paths:
+  /wp/v2/block-types:
+    get:
+      operationId: listBlockTypes
+      tags:
+      - block-types
+      summary: List block types
+      description: Retrieve a collection of block types from the Starfish Space WordPress REST API.
+      parameters:
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: namespace
+        in: query
+        required: false
+        description: Block namespace.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+  /wp/v2/block-types/{namespace}:
+    get:
+      operationId: getBlockTypesByNamespace
+      tags:
+      - block-types
+      summary: Retrieve a single block type
+      description: Retrieve a single block type by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        description: WordPress route parameter namespace.
+        schema:
+          type: string
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+  /wp/v2/block-types/{namespace}/{name}:
+    get:
+      operationId: getBlockTypesByNamespaceByName
+      tags:
+      - block-types
+      summary: Retrieve a single block type
+      description: Retrieve a single block type by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        description: WordPress route parameter namespace.
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        description: WordPress route parameter name.
+        schema:
+          type: string
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+components:
+  schemas:
+    RestError:
+      title: rest-error
+      type: object
+      description: WordPress REST API error envelope, as returned by this API.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application password (username + application password).
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress cookie authentication nonce, for same-origin requests.

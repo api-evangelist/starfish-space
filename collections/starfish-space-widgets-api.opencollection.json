@@ -1,0 +1,202 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Starfish Space Website Content API (WordPress REST v2) Widgets API",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "widgets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List widgets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/widgets",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              },
+              {
+                "name": "sidebar",
+                "value": "",
+                "type": "query",
+                "description": "The sidebar to return widgets for."
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of widgets from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Create or update widgets",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/widgets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create or update a widget via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single widget",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/widgets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single widget by route parameter from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Create or update widget",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/widgets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create or update a widget via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Update widget",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/widgets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Update a widget via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Update widget",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/widgets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Update a widget via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Delete widget",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/widgets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Whether to force removal of the widget, or move it to the inactive sidebar."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete a widget via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

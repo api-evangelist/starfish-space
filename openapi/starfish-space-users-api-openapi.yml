@@ -1,0 +1,1960 @@
+openapi: 3.2.0
+info:
+  title: Starfish Space Website Content API (WordPress REST v2) Users API
+  version: '2'
+  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
+
+
+    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  contact:
+    name: Starfish Space
+    url: https://www.starfishspace.com/contact/
+  x-derived-from:
+  - https://www.starfishspace.com/wp-json/wp/v2
+  - https://www.starfishspace.com/wp-json/wp/v2/{resource} (HTTP OPTIONS)
+servers:
+- url: https://www.starfishspace.com/wp-json
+  description: Production
+tags:
+- name: users
+  description: Site authors.
+paths:
+  /wp/v2/users:
+    get:
+      operationId: listUsers
+      tags:
+      - users
+      summary: List users
+      description: Retrieve a collection of users from the Starfish Space WordPress REST API.
+      parameters:
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: page
+        in: query
+        required: false
+        description: Current page of the collection.
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+      - name: per_page
+        in: query
+        required: false
+        description: Maximum number of items to be returned in result set.
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+      - name: search
+        in: query
+        required: false
+        description: Limit results to those matching a string.
+        schema:
+          type: string
+      - name: exclude
+        in: query
+        required: false
+        description: Ensure result set excludes specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: include
+        in: query
+        required: false
+        description: Limit result set to specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: offset
+        in: query
+        required: false
+        description: Offset the result set by a specific number of items.
+        schema:
+          type: integer
+      - name: order
+        in: query
+        required: false
+        description: Order sort attribute ascending or descending.
+        schema:
+          default: asc
+          enum:
+          - asc
+          - desc
+          type: string
+      - name: orderby
+        in: query
+        required: false
+        description: Sort collection by user attribute.
+        schema:
+          default: name
+          enum:
+          - id
+          - include
+          - name
+          - registered_date
+          - slug
+          - include_slugs
+          - email
+          - url
+          type: string
+      - name: slug
+        in: query
+        required: false
+        description: Limit result set to users with one or more specific slugs.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: roles
+        in: query
+        required: false
+        description: Limit result set to users matching at least one specific role provided. Accepts csv list or single role.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: capabilities
+        in: query
+        required: false
+        description: Limit result set to users matching at least one specific capability provided. Accepts csv list or single capability.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: who
+        in: query
+        required: false
+        description: Limit result set to users who are considered authors.
+        schema:
+          type: string
+          enum:
+          - authors
+      - name: has_published_posts
+        in: query
+        required: false
+        description: Limit result set to users who have published posts.
+        schema:
+          type:
+          - boolean
+          - array
+          items:
+            type: string
+            enum:
+              post: post
+              page: page
+              attachment: attachment
+              nav_menu_item: nav_menu_item
+              wp_block: wp_block
+              wp_template: wp_template
+              wp_template_part: wp_template_part
+              wp_global_styles: wp_global_styles
+              wp_navigation: wp_navigation
+              wp_font_family: wp_font_family
+              wp_font_face: wp_font_face
+      - name: search_columns
+        in: query
+        required: false
+        description: Array of column names to be searched.
+        schema:
+          default: []
+          type: array
+          items:
+            enum:
+            - email
+            - name
+            - id
+            - username
+            - slug
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createUsers
+      tags:
+      - users
+      summary: Create or update users
+      description: Create or update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Login name for the user.
+                name:
+                  type: string
+                  description: Display name for the user.
+                first_name:
+                  type: string
+                  description: First name for the user.
+                last_name:
+                  type: string
+                  description: Last name for the user.
+                email:
+                  type: string
+                  format: email
+                  description: The email address for the user.
+                url:
+                  type: string
+                  format: uri
+                  description: URL of the user.
+                description:
+                  type: string
+                  description: Description of the user.
+                locale:
+                  type: string
+                  enum:
+                  - ''
+                  - en_US
+                  description: Locale for the user.
+                nickname:
+                  type: string
+                  description: The nickname for the user.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the user.
+                roles:
+                  type: array
+                  items:
+                    type: string
+                  description: Roles assigned to the user.
+                password:
+                  type: string
+                  description: Password for the user (never included).
+                meta:
+                  type: object
+                  properties:
+                    persisted_preferences:
+                      type: object
+                      title: ''
+                      description: ''
+                      default: []
+                      context:
+                      - edit
+                      properties:
+                        _modified:
+                          description: The date and time the preferences were updated.
+                          type: string
+                          format: date-time
+                          readonly: false
+                      additionalProperties: true
+                  description: Meta fields.
+              required:
+              - username
+              - email
+              - password
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/users/me:
+    get:
+      operationId: listUsersMe
+      tags:
+      - users
+      summary: List users
+      description: Retrieve a collection of users from the Starfish Space WordPress REST API.
+      parameters:
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createUsersMe
+      tags:
+      - users
+      summary: Create or update users
+      description: Create or update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Login name for the user.
+                name:
+                  type: string
+                  description: Display name for the user.
+                first_name:
+                  type: string
+                  description: First name for the user.
+                last_name:
+                  type: string
+                  description: Last name for the user.
+                email:
+                  type: string
+                  format: email
+                  description: The email address for the user.
+                url:
+                  type: string
+                  format: uri
+                  description: URL of the user.
+                description:
+                  type: string
+                  description: Description of the user.
+                locale:
+                  type: string
+                  enum:
+                  - ''
+                  - en_US
+                  description: Locale for the user.
+                nickname:
+                  type: string
+                  description: The nickname for the user.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the user.
+                roles:
+                  type: array
+                  items:
+                    type: string
+                  description: Roles assigned to the user.
+                password:
+                  type: string
+                  description: Password for the user (never included).
+                meta:
+                  type: object
+                  properties:
+                    persisted_preferences:
+                      type: object
+                      title: ''
+                      description: ''
+                      default: []
+                      context:
+                      - edit
+                      properties:
+                        _modified:
+                          description: The date and time the preferences were updated.
+                          type: string
+                          format: date-time
+                          readonly: false
+                      additionalProperties: true
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    put:
+      operationId: updateUsersMe
+      tags:
+      - users
+      summary: Update users
+      description: Update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Login name for the user.
+                name:
+                  type: string
+                  description: Display name for the user.
+                first_name:
+                  type: string
+                  description: First name for the user.
+                last_name:
+                  type: string
+                  description: Last name for the user.
+                email:
+                  type: string
+                  format: email
+                  description: The email address for the user.
+                url:
+                  type: string
+                  format: uri
+                  description: URL of the user.
+                description:
+                  type: string
+                  description: Description of the user.
+                locale:
+                  type: string
+                  enum:
+                  - ''
+                  - en_US
+                  description: Locale for the user.
+                nickname:
+                  type: string
+                  description: The nickname for the user.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the user.
+                roles:
+                  type: array
+                  items:
+                    type: string
+                  description: Roles assigned to the user.
+                password:
+                  type: string
+                  description: Password for the user (never included).
+                meta:
+                  type: object
+                  properties:
+                    persisted_preferences:
+                      type: object
+                      title: ''
+                      description: ''
+                      default: []
+                      context:
+                      - edit
+                      properties:
+                        _modified:
+                          description: The date and time the preferences were updated.
+                          type: string
+                          format: date-time
+                          readonly: false
+                      additionalProperties: true
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    patch:
+      operationId: updateUsersMe2
+      tags:
+      - users
+      summary: Update users
+      description: Update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Login name for the user.
+                name:
+                  type: string
+                  description: Display name for the user.
+                first_name:
+                  type: string
+                  description: First name for the user.
+                last_name:
+                  type: string
+                  description: Last name for the user.
+                email:
+                  type: string
+                  format: email
+                  description: The email address for the user.
+                url:
+                  type: string
+                  format: uri
+                  description: URL of the user.
+                description:
+                  type: string
+                  description: Description of the user.
+                locale:
+                  type: string
+                  enum:
+                  - ''
+                  - en_US
+                  description: Locale for the user.
+                nickname:
+                  type: string
+                  description: The nickname for the user.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the user.
+                roles:
+                  type: array
+                  items:
+                    type: string
+                  description: Roles assigned to the user.
+                password:
+                  type: string
+                  description: Password for the user (never included).
+                meta:
+                  type: object
+                  properties:
+                    persisted_preferences:
+                      type: object
+                      title: ''
+                      description: ''
+                      default: []
+                      context:
+                      - edit
+                      properties:
+                        _modified:
+                          description: The date and time the preferences were updated.
+                          type: string
+                          format: date-time
+                          readonly: false
+                      additionalProperties: true
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    delete:
+      operationId: deleteUsersMe
+      tags:
+      - users
+      summary: Delete users
+      description: Delete a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: force
+        in: query
+        required: false
+        description: Required to be true, as users do not support trashing.
+        schema:
+          type: boolean
+          default: false
+      - name: reassign
+        in: query
+        required: true
+        description: Reassign the deleted user's posts and links to this user ID.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/users/{id}:
+    get:
+      operationId: getUsersById
+      tags:
+      - users
+      summary: Retrieve a single user
+      description: Retrieve a single user by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createUsersById
+      tags:
+      - users
+      summary: Create or update user
+      description: Create or update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Login name for the user.
+                name:
+                  type: string
+                  description: Display name for the user.
+                first_name:
+                  type: string
+                  description: First name for the user.
+                last_name:
+                  type: string
+                  description: Last name for the user.
+                email:
+                  type: string
+                  format: email
+                  description: The email address for the user.
+                url:
+                  type: string
+                  format: uri
+                  description: URL of the user.
+                description:
+                  type: string
+                  description: Description of the user.
+                locale:
+                  type: string
+                  enum:
+                  - ''
+                  - en_US
+                  description: Locale for the user.
+                nickname:
+                  type: string
+                  description: The nickname for the user.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the user.
+                roles:
+                  type: array
+                  items:
+                    type: string
+                  description: Roles assigned to the user.
+                password:
+                  type: string
+                  description: Password for the user (never included).
+                meta:
+                  type: object
+                  properties:
+                    persisted_preferences:
+                      type: object
+                      title: ''
+                      description: ''
+                      default: []
+                      context:
+                      - edit
+                      properties:
+                        _modified:
+                          description: The date and time the preferences were updated.
+                          type: string
+                          format: date-time
+                          readonly: false
+                      additionalProperties: true
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    put:
+      operationId: updateUsersById
+      tags:
+      - users
+      summary: Update user
+      description: Update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Login name for the user.
+                name:
+                  type: string
+                  description: Display name for the user.
+                first_name:
+                  type: string
+                  description: First name for the user.
+                last_name:
+                  type: string
+                  description: Last name for the user.
+                email:
+                  type: string
+                  format: email
+                  description: The email address for the user.
+                url:
+                  type: string
+                  format: uri
+                  description: URL of the user.
+                description:
+                  type: string
+                  description: Description of the user.
+                locale:
+                  type: string
+                  enum:
+                  - ''
+                  - en_US
+                  description: Locale for the user.
+                nickname:
+                  type: string
+                  description: The nickname for the user.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the user.
+                roles:
+                  type: array
+                  items:
+                    type: string
+                  description: Roles assigned to the user.
+                password:
+                  type: string
+                  description: Password for the user (never included).
+                meta:
+                  type: object
+                  properties:
+                    persisted_preferences:
+                      type: object
+                      title: ''
+                      description: ''
+                      default: []
+                      context:
+                      - edit
+                      properties:
+                        _modified:
+                          description: The date and time the preferences were updated.
+                          type: string
+                          format: date-time
+                          readonly: false
+                      additionalProperties: true
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    patch:
+      operationId: updateUsersById2
+      tags:
+      - users
+      summary: Update user
+      description: Update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Login name for the user.
+                name:
+                  type: string
+                  description: Display name for the user.
+                first_name:
+                  type: string
+                  description: First name for the user.
+                last_name:
+                  type: string
+                  description: Last name for the user.
+                email:
+                  type: string
+                  format: email
+                  description: The email address for the user.
+                url:
+                  type: string
+                  format: uri
+                  description: URL of the user.
+                description:
+                  type: string
+                  description: Description of the user.
+                locale:
+                  type: string
+                  enum:
+                  - ''
+                  - en_US
+                  description: Locale for the user.
+                nickname:
+                  type: string
+                  description: The nickname for the user.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the user.
+                roles:
+                  type: array
+                  items:
+                    type: string
+                  description: Roles assigned to the user.
+                password:
+                  type: string
+                  description: Password for the user (never included).
+                meta:
+                  type: object
+                  properties:
+                    persisted_preferences:
+                      type: object
+                      title: ''
+                      description: ''
+                      default: []
+                      context:
+                      - edit
+                      properties:
+                        _modified:
+                          description: The date and time the preferences were updated.
+                          type: string
+                          format: date-time
+                          readonly: false
+                      additionalProperties: true
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    delete:
+      operationId: deleteUsersById
+      tags:
+      - users
+      summary: Delete user
+      description: Delete a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: force
+        in: query
+        required: false
+        description: Required to be true, as users do not support trashing.
+        schema:
+          type: boolean
+          default: false
+      - name: reassign
+        in: query
+        required: true
+        description: Reassign the deleted user's posts and links to this user ID.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/users/{user_id}/application-passwords:
+    get:
+      operationId: getUsersByUser_idApplicationPasswords
+      tags:
+      - users
+      summary: Retrieve a single user
+      description: Retrieve a single user by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: WordPress route parameter user_id.
+        schema:
+          type: string
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createUsersByUser_idApplicationPasswords
+      tags:
+      - users
+      summary: Create or update user
+      description: Create or update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: WordPress route parameter user_id.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                app_id:
+                  type: string
+                  oneOf:
+                  - type: string
+                    format: uuid
+                  - type: string
+                    enum:
+                    - ''
+                  description: A UUID provided by the application to uniquely identify it. It is recommended to use an UUID v5 with the URL or DNS namespace.
+                name:
+                  type: string
+                  minLength: 1
+                  pattern: .*\S.*
+                  description: The name of the application password.
+              required:
+              - name
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    delete:
+      operationId: deleteUsersByUser_idApplicationPasswords
+      tags:
+      - users
+      summary: Delete user
+      description: Delete a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: WordPress route parameter user_id.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/users/{user_id}/application-passwords/introspect:
+    get:
+      operationId: getUsersByUser_idApplicationPasswordsIntrospect
+      tags:
+      - users
+      summary: Retrieve a single user
+      description: Retrieve a single user by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: WordPress route parameter user_id.
+        schema:
+          type: string
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+  /wp/v2/users/{user_id}/application-passwords/{uuid}:
+    get:
+      operationId: getUsersByUser_idApplicationPasswordsByUuid
+      tags:
+      - users
+      summary: Retrieve a single user
+      description: Retrieve a single user by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: WordPress route parameter user_id.
+        schema:
+          type: string
+      - name: uuid
+        in: path
+        required: true
+        description: WordPress route parameter uuid.
+        schema:
+          type: string
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createUsersByUser_idApplicationPasswordsByUuid
+      tags:
+      - users
+      summary: Create or update user
+      description: Create or update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: WordPress route parameter user_id.
+        schema:
+          type: string
+      - name: uuid
+        in: path
+        required: true
+        description: WordPress route parameter uuid.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                app_id:
+                  type: string
+                  oneOf:
+                  - type: string
+                    format: uuid
+                  - type: string
+                    enum:
+                    - ''
+                  description: A UUID provided by the application to uniquely identify it. It is recommended to use an UUID v5 with the URL or DNS namespace.
+                name:
+                  type: string
+                  minLength: 1
+                  pattern: .*\S.*
+                  description: The name of the application password.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    put:
+      operationId: updateUsersByUser_idApplicationPasswordsByUuid
+      tags:
+      - users
+      summary: Update user
+      description: Update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: WordPress route parameter user_id.
+        schema:
+          type: string
+      - name: uuid
+        in: path
+        required: true
+        description: WordPress route parameter uuid.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                app_id:
+                  type: string
+                  oneOf:
+                  - type: string
+                    format: uuid
+                  - type: string
+                    enum:
+                    - ''
+                  description: A UUID provided by the application to uniquely identify it. It is recommended to use an UUID v5 with the URL or DNS namespace.
+                name:
+                  type: string
+                  minLength: 1
+                  pattern: .*\S.*
+                  description: The name of the application password.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    patch:
+      operationId: updateUsersByUser_idApplicationPasswordsByUuid2
+      tags:
+      - users
+      summary: Update user
+      description: Update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: WordPress route parameter user_id.
+        schema:
+          type: string
+      - name: uuid
+        in: path
+        required: true
+        description: WordPress route parameter uuid.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                app_id:
+                  type: string
+                  oneOf:
+                  - type: string
+                    format: uuid
+                  - type: string
+                    enum:
+                    - ''
+                  description: A UUID provided by the application to uniquely identify it. It is recommended to use an UUID v5 with the URL or DNS namespace.
+                name:
+                  type: string
+                  minLength: 1
+                  pattern: .*\S.*
+                  description: The name of the application password.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    delete:
+      operationId: deleteUsersByUser_idApplicationPasswordsByUuid
+      tags:
+      - users
+      summary: Delete user
+      description: Delete a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: WordPress route parameter user_id.
+        schema:
+          type: string
+      - name: uuid
+        in: path
+        required: true
+        description: WordPress route parameter uuid.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+components:
+  schemas:
+    User:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the user.
+          type: integer
+          context:
+          - embed
+          - view
+          - edit
+          readonly: true
+        username:
+          description: Login name for the user.
+          type: string
+          context:
+          - edit
+          required: true
+        name:
+          description: Display name for the user.
+          type: string
+          context:
+          - embed
+          - view
+          - edit
+        first_name:
+          description: First name for the user.
+          type: string
+          context:
+          - edit
+        last_name:
+          description: Last name for the user.
+          type: string
+          context:
+          - edit
+        email:
+          description: The email address for the user.
+          type: string
+          format: email
+          context:
+          - edit
+          required: true
+        url:
+          description: URL of the user.
+          type: string
+          format: uri
+          context:
+          - embed
+          - view
+          - edit
+        description:
+          description: Description of the user.
+          type: string
+          context:
+          - embed
+          - view
+          - edit
+        link:
+          description: Author URL of the user.
+          type: string
+          format: uri
+          context:
+          - embed
+          - view
+          - edit
+          readonly: true
+        locale:
+          description: Locale for the user.
+          type: string
+          enum:
+          - ''
+          - en_US
+          context:
+          - edit
+        nickname:
+          description: The nickname for the user.
+          type: string
+          context:
+          - edit
+        slug:
+          description: An alphanumeric identifier for the user.
+          type: string
+          context:
+          - embed
+          - view
+          - edit
+        registered_date:
+          description: Registration date for the user.
+          type: string
+          format: date-time
+          context:
+          - edit
+          readonly: true
+        roles:
+          description: Roles assigned to the user.
+          type: array
+          items:
+            type: string
+          context:
+          - edit
+        password:
+          description: Password for the user (never included).
+          type: string
+          context: []
+          required: true
+        capabilities:
+          description: All capabilities assigned to the user.
+          type: object
+          context:
+          - edit
+          readonly: true
+        extra_capabilities:
+          description: Any extra capabilities assigned to the user.
+          type: object
+          context:
+          - edit
+          readonly: true
+        meta:
+          description: Meta fields.
+          type: object
+          context:
+          - view
+          - edit
+          properties:
+            persisted_preferences:
+              type: object
+              title: ''
+              description: ''
+              default: []
+              context:
+              - edit
+              properties:
+                _modified:
+                  description: The date and time the preferences were updated.
+                  type: string
+                  format: date-time
+                  readonly: false
+              additionalProperties: true
+        acf:
+          description: ACF field data
+          type: object
+          properties: []
+    RestError:
+      title: rest-error
+      type: object
+      description: WordPress REST API error envelope, as returned by this API.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application password (username + application password).
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress cookie authentication nonce, for same-origin requests.

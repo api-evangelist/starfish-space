@@ -1,0 +1,1235 @@
+{
+  "item": [
+    {
+      "id": "fddf48e8-160a-4ed4-9db0-a53b4ca3bdd9",
+      "name": "settings",
+      "description": {
+        "content": "Site settings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "094e84f2-6eb7-434e-8e64-b11a11403012",
+          "name": "List settings",
+          "request": {
+            "name": "List settings",
+            "description": {
+              "content": "Retrieve a collection of settings from the Starfish Space WordPress REST API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8a61e11c-d8b4-4f40-89db-f5895c23291f",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c08e3f4-a8a5-4e24-8960-6d700f37e620",
+              "name": "Invalid parameter.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ed0436a-42aa-4749-849e-f12e798d7621",
+              "name": "Authentication required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e0708c3-d977-45d9-80b2-eab17ac3c815",
+              "name": "Not allowed for the current user.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c90b9c66-04ce-41f9-b019-68534b7c74f7",
+              "name": "No route or resource matched the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "45139f45-391e-4b2c-84fa-8c9c23f70342",
+          "name": "Create or update settings",
+          "request": {
+            "name": "Create or update settings",
+            "description": {
+              "content": "Create or update a setting via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aae0ef00-52ba-4933-8ce8-fefeb4fd5af0",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebd74f89-4295-495b-9902-781442540812",
+              "name": "Invalid parameter.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "495aff74-5bc7-4230-b3a0-d4f2493c4daf",
+              "name": "Authentication required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0325b16b-27ea-4e82-81f4-cfe9bcddfb21",
+              "name": "Not allowed for the current user.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8aef482-7f6e-4029-baf3-40a4a5ea91c6",
+              "name": "No route or resource matched the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d33d8a2-41d7-4a1f-b4e9-916039ac7507",
+          "name": "Update settings",
+          "request": {
+            "name": "Update settings",
+            "description": {
+              "content": "Update a setting via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c9f5d610-717d-42af-90ea-ff84f3751b42",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51c7919c-e92f-45e3-851a-5149c5bad513",
+              "name": "Invalid parameter.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a815926-8591-4717-8e0e-f39e1e953124",
+              "name": "Authentication required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ba2f202-92ad-4c5c-900e-2ecdea8a0308",
+              "name": "Not allowed for the current user.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "221b113e-494e-44b3-aea8-b8fb450c3cb1",
+              "name": "No route or resource matched the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0bdcc4f-81fb-4055-a62f-4add8141efce",
+          "name": "Update settings",
+          "request": {
+            "name": "Update settings",
+            "description": {
+              "content": "Update a setting via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c830b175-86d0-4aef-9ca8-50f5dd7c4f5a",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e99f3c0-c784-444a-873a-ab5c2ec21103",
+              "name": "Invalid parameter.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10d6a3d4-6218-40fb-a91c-02af05269b08",
+              "name": "Authentication required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64f145fc-c23c-4973-a5b2-08a906278bb0",
+              "name": "Not allowed for the current user.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0956f22a-c411-4d71-914e-3cdb217a4f27",
+              "name": "No route or resource matched the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"timezone\": \"<string>\",\n  \"date_format\": \"<string>\",\n  \"time_format\": \"<string>\",\n  \"start_of_week\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"use_smilies\": \"<boolean>\",\n  \"default_category\": \"<integer>\",\n  \"default_post_format\": \"<string>\",\n  \"posts_per_page\": \"<integer>\",\n  \"show_on_front\": \"<string>\",\n  \"page_on_front\": \"<integer>\",\n  \"page_for_posts\": \"<integer>\",\n  \"default_ping_status\": \"<string>\",\n  \"default_comment_status\": \"<string>\",\n  \"site_logo\": \"<integer>\",\n  \"site_icon\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"status\": 7687\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.starfishspace.com/wp-json",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8a1ba9a0-a428-4848-a300-cce10aa6c9ce",
+    "name": "Starfish Space Website Content API (WordPress REST v2) Settings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.\n\nThis document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.\n\nContact Support:\n Name: Starfish Space",
+      "type": "text/plain"
+    }
+  }
+}

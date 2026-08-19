@@ -1,0 +1,569 @@
+openapi: 3.2.0
+info:
+  title: Starfish Space Website Content API (WordPress REST v2) Wp Pattern Category API
+  version: '2'
+  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
+
+
+    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  contact:
+    name: Starfish Space
+    url: https://www.starfishspace.com/contact/
+  x-derived-from:
+  - https://www.starfishspace.com/wp-json/wp/v2
+  - https://www.starfishspace.com/wp-json/wp/v2/{resource} (HTTP OPTIONS)
+servers:
+- url: https://www.starfishspace.com/wp-json
+  description: Production
+tags:
+- name: wp_pattern_category
+  description: wp_pattern_category routes.
+paths:
+  /wp/v2/wp_pattern_category:
+    get:
+      operationId: listWpPatternCategory
+      tags:
+      - wp_pattern_category
+      summary: List wp_pattern_category
+      description: Retrieve a collection of wp_pattern_category from the Starfish Space WordPress REST API.
+      parameters:
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: page
+        in: query
+        required: false
+        description: Current page of the collection.
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+      - name: per_page
+        in: query
+        required: false
+        description: Maximum number of items to be returned in result set.
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+      - name: search
+        in: query
+        required: false
+        description: Limit results to those matching a string.
+        schema:
+          type: string
+      - name: exclude
+        in: query
+        required: false
+        description: Ensure result set excludes specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: include
+        in: query
+        required: false
+        description: Limit result set to specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: offset
+        in: query
+        required: false
+        description: Offset the result set by a specific number of items.
+        schema:
+          type: integer
+      - name: order
+        in: query
+        required: false
+        description: Order sort attribute ascending or descending.
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      - name: orderby
+        in: query
+        required: false
+        description: Sort collection by term attribute.
+        schema:
+          type: string
+          default: name
+          enum:
+          - id
+          - include
+          - name
+          - slug
+          - include_slugs
+          - term_group
+          - description
+          - count
+      - name: hide_empty
+        in: query
+        required: false
+        description: Whether to hide terms not assigned to any posts.
+        schema:
+          type: boolean
+          default: false
+      - name: post
+        in: query
+        required: false
+        description: Limit result set to terms assigned to a specific post.
+        schema:
+          type: integer
+          default: null
+      - name: slug
+        in: query
+        required: false
+        description: Limit result set to terms with one or more specific slugs.
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createWpPatternCategory
+      tags:
+      - wp_pattern_category
+      summary: Create or update wp_pattern_category
+      description: Create or update a wp_pattern_category via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  description: HTML description of the term.
+                name:
+                  type: string
+                  description: HTML title for the term.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the term unique to its type.
+                meta:
+                  type: object
+                  properties: []
+                  description: Meta fields.
+              required:
+              - name
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/wp_pattern_category/{id}:
+    get:
+      operationId: getWpPatternCategoryById
+      tags:
+      - wp_pattern_category
+      summary: Retrieve a single wp_pattern_category
+      description: Retrieve a single wp_pattern_category by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createWpPatternCategoryById
+      tags:
+      - wp_pattern_category
+      summary: Create or update wp_pattern_category
+      description: Create or update a wp_pattern_category via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  description: HTML description of the term.
+                name:
+                  type: string
+                  description: HTML title for the term.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the term unique to its type.
+                meta:
+                  type: object
+                  properties: []
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    put:
+      operationId: updateWpPatternCategoryById
+      tags:
+      - wp_pattern_category
+      summary: Update wp_pattern_category
+      description: Update a wp_pattern_category via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  description: HTML description of the term.
+                name:
+                  type: string
+                  description: HTML title for the term.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the term unique to its type.
+                meta:
+                  type: object
+                  properties: []
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    patch:
+      operationId: updateWpPatternCategoryById2
+      tags:
+      - wp_pattern_category
+      summary: Update wp_pattern_category
+      description: Update a wp_pattern_category via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  description: HTML description of the term.
+                name:
+                  type: string
+                  description: HTML title for the term.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the term unique to its type.
+                meta:
+                  type: object
+                  properties: []
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    delete:
+      operationId: deleteWpPatternCategoryById
+      tags:
+      - wp_pattern_category
+      summary: Delete wp_pattern_category
+      description: Delete a wp_pattern_category via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: force
+        in: query
+        required: false
+        description: Required to be true, as terms do not support trashing.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+components:
+  schemas:
+    RestError:
+      title: rest-error
+      type: object
+      description: WordPress REST API error envelope, as returned by this API.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application password (username + application password).
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress cookie authentication nonce, for same-origin requests.

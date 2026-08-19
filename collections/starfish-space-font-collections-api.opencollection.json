@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Starfish Space Website Content API (WordPress REST v2) Font Collections API",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "font-collections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List font collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/font-collections",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in result set."
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of font collections from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single font collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/font-collections/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter slug."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single font collection by route parameter from the Starfish Space WordPress REST API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

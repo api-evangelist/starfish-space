@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Starfish Space Website Content API (WordPress REST v2) Block Types API",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "block-types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List block types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/block-types",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "query",
+                "description": "Block namespace."
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of block types from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single block type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/block-types/:namespace",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter namespace."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single block type by route parameter from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single block type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/block-types/:namespace/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter name."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single block type by route parameter from the Starfish Space WordPress REST API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,437 @@
+openapi: 3.2.0
+info:
+  title: Starfish Space Website Content API (WordPress REST v2) Settings API
+  version: '2'
+  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
+
+
+    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  contact:
+    name: Starfish Space
+    url: https://www.starfishspace.com/contact/
+  x-derived-from:
+  - https://www.starfishspace.com/wp-json/wp/v2
+  - https://www.starfishspace.com/wp-json/wp/v2/{resource} (HTTP OPTIONS)
+servers:
+- url: https://www.starfishspace.com/wp-json
+  description: Production
+tags:
+- name: settings
+  description: Site settings.
+paths:
+  /wp/v2/settings:
+    get:
+      operationId: listSettings
+      tags:
+      - settings
+      summary: List settings
+      description: Retrieve a collection of settings from the Starfish Space WordPress REST API.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createSettings
+      tags:
+      - settings
+      summary: Create or update settings
+      description: Create or update a setting via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Site title.
+                description:
+                  type: string
+                  description: Site tagline.
+                url:
+                  type: string
+                  format: uri
+                  description: Site URL.
+                email:
+                  type: string
+                  format: email
+                  description: This address is used for admin purposes, like new user notification.
+                timezone:
+                  type: string
+                  description: A city in the same timezone as you.
+                date_format:
+                  type: string
+                  description: A date format for all date strings.
+                time_format:
+                  type: string
+                  description: A time format for all time strings.
+                start_of_week:
+                  type: integer
+                  description: A day number of the week that the week should start on.
+                language:
+                  type: string
+                  description: WordPress locale code.
+                use_smilies:
+                  type: boolean
+                  description: Convert emoticons like :-) and :-P to graphics on display.
+                default_category:
+                  type: integer
+                  description: Default post category.
+                default_post_format:
+                  type: string
+                  description: Default post format.
+                posts_per_page:
+                  type: integer
+                  description: Blog pages show at most.
+                show_on_front:
+                  type: string
+                  description: What to show on the front page
+                page_on_front:
+                  type: integer
+                  description: The ID of the page that should be displayed on the front page
+                page_for_posts:
+                  type: integer
+                  description: The ID of the page that should display the latest posts
+                default_ping_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Allow link notifications from other blogs (pingbacks and trackbacks) on new articles.
+                default_comment_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Allow people to submit comments on new posts.
+                site_logo:
+                  type: integer
+                  description: Site logo.
+                site_icon:
+                  type: integer
+                  description: Site icon.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    put:
+      operationId: updateSettings
+      tags:
+      - settings
+      summary: Update settings
+      description: Update a setting via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Site title.
+                description:
+                  type: string
+                  description: Site tagline.
+                url:
+                  type: string
+                  format: uri
+                  description: Site URL.
+                email:
+                  type: string
+                  format: email
+                  description: This address is used for admin purposes, like new user notification.
+                timezone:
+                  type: string
+                  description: A city in the same timezone as you.
+                date_format:
+                  type: string
+                  description: A date format for all date strings.
+                time_format:
+                  type: string
+                  description: A time format for all time strings.
+                start_of_week:
+                  type: integer
+                  description: A day number of the week that the week should start on.
+                language:
+                  type: string
+                  description: WordPress locale code.
+                use_smilies:
+                  type: boolean
+                  description: Convert emoticons like :-) and :-P to graphics on display.
+                default_category:
+                  type: integer
+                  description: Default post category.
+                default_post_format:
+                  type: string
+                  description: Default post format.
+                posts_per_page:
+                  type: integer
+                  description: Blog pages show at most.
+                show_on_front:
+                  type: string
+                  description: What to show on the front page
+                page_on_front:
+                  type: integer
+                  description: The ID of the page that should be displayed on the front page
+                page_for_posts:
+                  type: integer
+                  description: The ID of the page that should display the latest posts
+                default_ping_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Allow link notifications from other blogs (pingbacks and trackbacks) on new articles.
+                default_comment_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Allow people to submit comments on new posts.
+                site_logo:
+                  type: integer
+                  description: Site logo.
+                site_icon:
+                  type: integer
+                  description: Site icon.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    patch:
+      operationId: updateSettings2
+      tags:
+      - settings
+      summary: Update settings
+      description: Update a setting via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Site title.
+                description:
+                  type: string
+                  description: Site tagline.
+                url:
+                  type: string
+                  format: uri
+                  description: Site URL.
+                email:
+                  type: string
+                  format: email
+                  description: This address is used for admin purposes, like new user notification.
+                timezone:
+                  type: string
+                  description: A city in the same timezone as you.
+                date_format:
+                  type: string
+                  description: A date format for all date strings.
+                time_format:
+                  type: string
+                  description: A time format for all time strings.
+                start_of_week:
+                  type: integer
+                  description: A day number of the week that the week should start on.
+                language:
+                  type: string
+                  description: WordPress locale code.
+                use_smilies:
+                  type: boolean
+                  description: Convert emoticons like :-) and :-P to graphics on display.
+                default_category:
+                  type: integer
+                  description: Default post category.
+                default_post_format:
+                  type: string
+                  description: Default post format.
+                posts_per_page:
+                  type: integer
+                  description: Blog pages show at most.
+                show_on_front:
+                  type: string
+                  description: What to show on the front page
+                page_on_front:
+                  type: integer
+                  description: The ID of the page that should be displayed on the front page
+                page_for_posts:
+                  type: integer
+                  description: The ID of the page that should display the latest posts
+                default_ping_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Allow link notifications from other blogs (pingbacks and trackbacks) on new articles.
+                default_comment_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Allow people to submit comments on new posts.
+                site_logo:
+                  type: integer
+                  description: Site logo.
+                site_icon:
+                  type: integer
+                  description: Site icon.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+components:
+  schemas:
+    RestError:
+      title: rest-error
+      type: object
+      description: WordPress REST API error envelope, as returned by this API.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application password (username + application password).
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress cookie authentication nonce, for same-origin requests.

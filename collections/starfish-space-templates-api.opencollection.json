@@ -1,0 +1,469 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Starfish Space Website Content API (WordPress REST v2) Templates API",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/templates",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              },
+              {
+                "name": "wp_id",
+                "value": "",
+                "type": "query",
+                "description": "Limit to the specified post id."
+              },
+              {
+                "name": "area",
+                "value": "",
+                "type": "query",
+                "description": "Limit to the specified template part area."
+              },
+              {
+                "name": "post_type",
+                "value": "",
+                "type": "query",
+                "description": "Post type to get the templates for."
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of templates from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Create or update templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/templates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create or update a template via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "List templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/templates/lookup",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "query",
+                "description": "The slug of the template to get the fallback for"
+              },
+              {
+                "name": "is_custom",
+                "value": "",
+                "type": "query",
+                "description": "Indicates if a template is custom or part of the template hierarchy"
+              },
+              {
+                "name": "template_prefix",
+                "value": "",
+                "type": "query",
+                "description": "The template prefix for the created template. This is used to extract the main template type, e.g. in `taxonomy-books` extracts the `taxonomy`"
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of templates from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/templates/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single template by route parameter from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Create or update template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/templates/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create or update a template via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Update template",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/templates/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Update a template via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Update template",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/templates/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Update a template via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Delete template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/templates/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Whether to bypass Trash and force deletion."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete a template via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/templates/:id/autosaves",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single template by route parameter from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Create or update template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/templates/:id/autosaves",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create or update a template via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/templates/:parent/autosaves/:id",
+            "params": [
+              {
+                "name": "parent",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter parent."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single template by route parameter from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/templates/:parent/revisions",
+            "params": [
+              {
+                "name": "parent",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter parent."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in result set."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query",
+                "description": "Ensure result set excludes specific IDs."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to specific IDs."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset the result set by a specific number of items."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order sort attribute ascending or descending."
+              },
+              {
+                "name": "orderby",
+                "value": "",
+                "type": "query",
+                "description": "Sort collection by object attribute."
+              }
+            ]
+          },
+          "docs": "Retrieve a single template by route parameter from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/templates/:parent/revisions/:id",
+            "params": [
+              {
+                "name": "parent",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter parent."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single template by route parameter from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Delete template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/templates/:parent/revisions/:id",
+            "params": [
+              {
+                "name": "parent",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter parent."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Required to be true, as revisions do not support trashing."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete a template via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

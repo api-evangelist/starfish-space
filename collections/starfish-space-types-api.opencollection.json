@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Starfish Space Website Content API (WordPress REST v2) Types API",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/types",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of types from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/types/:type",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter type."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single type by route parameter from the Starfish Space WordPress REST API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

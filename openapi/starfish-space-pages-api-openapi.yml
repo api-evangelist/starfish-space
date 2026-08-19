@@ -1,0 +1,2050 @@
+openapi: 3.2.0
+info:
+  title: Starfish Space Website Content API (WordPress REST v2) Pages API
+  version: '2'
+  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
+
+
+    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  contact:
+    name: Starfish Space
+    url: https://www.starfishspace.com/contact/
+  x-derived-from:
+  - https://www.starfishspace.com/wp-json/wp/v2
+  - https://www.starfishspace.com/wp-json/wp/v2/{resource} (HTTP OPTIONS)
+servers:
+- url: https://www.starfishspace.com/wp-json
+  description: Production
+tags:
+- name: pages
+  description: Static pages (The Otter, Company, Missions, Careers, Contact).
+paths:
+  /wp/v2/pages:
+    get:
+      operationId: listPages
+      tags:
+      - pages
+      summary: List pages
+      description: Retrieve a collection of pages from the Starfish Space WordPress REST API.
+      parameters:
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: page
+        in: query
+        required: false
+        description: Current page of the collection.
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+      - name: per_page
+        in: query
+        required: false
+        description: Maximum number of items to be returned in result set.
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+      - name: search
+        in: query
+        required: false
+        description: Limit results to those matching a string.
+        schema:
+          type: string
+      - name: after
+        in: query
+        required: false
+        description: Limit response to posts published after a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: modified_after
+        in: query
+        required: false
+        description: Limit response to posts modified after a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: author
+        in: query
+        required: false
+        description: Limit result set to posts assigned to specific authors.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: author_exclude
+        in: query
+        required: false
+        description: Ensure result set excludes posts assigned to specific authors.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: before
+        in: query
+        required: false
+        description: Limit response to posts published before a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: modified_before
+        in: query
+        required: false
+        description: Limit response to posts modified before a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: exclude
+        in: query
+        required: false
+        description: Ensure result set excludes specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: include
+        in: query
+        required: false
+        description: Limit result set to specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: menu_order
+        in: query
+        required: false
+        description: Limit result set to posts with a specific menu_order value.
+        schema:
+          type: integer
+      - name: search_semantics
+        in: query
+        required: false
+        description: How to interpret the search input.
+        schema:
+          type: string
+          enum:
+          - exact
+      - name: offset
+        in: query
+        required: false
+        description: Offset the result set by a specific number of items.
+        schema:
+          type: integer
+      - name: order
+        in: query
+        required: false
+        description: Order sort attribute ascending or descending.
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      - name: orderby
+        in: query
+        required: false
+        description: Sort collection by post attribute.
+        schema:
+          type: string
+          default: date
+          enum:
+          - author
+          - date
+          - id
+          - include
+          - modified
+          - parent
+          - relevance
+          - slug
+          - include_slugs
+          - title
+          - menu_order
+      - name: parent
+        in: query
+        required: false
+        description: Limit result set to items with particular parent IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: parent_exclude
+        in: query
+        required: false
+        description: Limit result set to all items except those of a particular parent ID.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: search_columns
+        in: query
+        required: false
+        description: Array of column names to be searched.
+        schema:
+          default: []
+          type: array
+          items:
+            enum:
+            - post_title
+            - post_content
+            - post_excerpt
+            type: string
+      - name: slug
+        in: query
+        required: false
+        description: Limit result set to posts with one or more specific slugs.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: status
+        in: query
+        required: false
+        description: Limit result set to posts assigned one or more statuses.
+        schema:
+          default: publish
+          type: array
+          items:
+            enum:
+            - publish
+            - future
+            - draft
+            - pending
+            - private
+            - trash
+            - auto-draft
+            - inherit
+            - request-pending
+            - request-confirmed
+            - request-failed
+            - request-completed
+            - acf-disabled
+            - any
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Page'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createPages
+      tags:
+      - pages
+      summary: Create or update pages
+      description: Create or update a page via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the post.
+                password:
+                  type: string
+                  description: A password to protect access to the content and excerpt.
+                parent:
+                  type: integer
+                  description: The ID for the parent of the post.
+                title:
+                  type: object
+                  properties:
+                    raw:
+                      description: Title for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML title for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The title for the post.
+                content:
+                  type: object
+                  properties:
+                    raw:
+                      description: Content for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML content for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      readonly: true
+                    block_version:
+                      description: Version of the content block format used by the post.
+                      type: integer
+                      context:
+                      - edit
+                      readonly: true
+                    protected:
+                      description: Whether the content is protected with a password.
+                      type: boolean
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The content for the post.
+                author:
+                  type: integer
+                  description: The ID for the author of the post.
+                excerpt:
+                  type: object
+                  properties:
+                    raw:
+                      description: Excerpt for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML excerpt for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                    protected:
+                      description: Whether the excerpt is protected with a password.
+                      type: boolean
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The excerpt for the post.
+                featured_media:
+                  type: integer
+                  description: The ID of the featured media for the post.
+                comment_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not comments are open on the post.
+                ping_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not the post can be pinged.
+                menu_order:
+                  type: integer
+                  description: The order of the post in relation to other posts.
+                meta:
+                  type: object
+                  properties:
+                    footnotes:
+                      type: string
+                      title: ''
+                      description: ''
+                      default: ''
+                  description: Meta fields.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/pages/{id}:
+    get:
+      operationId: getPagesById
+      tags:
+      - pages
+      summary: Retrieve a single page
+      description: Retrieve a single page by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: excerpt_length
+        in: query
+        required: false
+        description: Override the default excerpt length.
+        schema:
+          type: integer
+      - name: password
+        in: query
+        required: false
+        description: The password for the post if it is password protected.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createPagesById
+      tags:
+      - pages
+      summary: Create or update page
+      description: Create or update a page via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the post.
+                password:
+                  type: string
+                  description: A password to protect access to the content and excerpt.
+                parent:
+                  type: integer
+                  description: The ID for the parent of the post.
+                title:
+                  type: object
+                  properties:
+                    raw:
+                      description: Title for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML title for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The title for the post.
+                content:
+                  type: object
+                  properties:
+                    raw:
+                      description: Content for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML content for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      readonly: true
+                    block_version:
+                      description: Version of the content block format used by the post.
+                      type: integer
+                      context:
+                      - edit
+                      readonly: true
+                    protected:
+                      description: Whether the content is protected with a password.
+                      type: boolean
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The content for the post.
+                author:
+                  type: integer
+                  description: The ID for the author of the post.
+                excerpt:
+                  type: object
+                  properties:
+                    raw:
+                      description: Excerpt for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML excerpt for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                    protected:
+                      description: Whether the excerpt is protected with a password.
+                      type: boolean
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The excerpt for the post.
+                featured_media:
+                  type: integer
+                  description: The ID of the featured media for the post.
+                comment_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not comments are open on the post.
+                ping_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not the post can be pinged.
+                menu_order:
+                  type: integer
+                  description: The order of the post in relation to other posts.
+                meta:
+                  type: object
+                  properties:
+                    footnotes:
+                      type: string
+                      title: ''
+                      description: ''
+                      default: ''
+                  description: Meta fields.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    put:
+      operationId: updatePagesById
+      tags:
+      - pages
+      summary: Update page
+      description: Update a page via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the post.
+                password:
+                  type: string
+                  description: A password to protect access to the content and excerpt.
+                parent:
+                  type: integer
+                  description: The ID for the parent of the post.
+                title:
+                  type: object
+                  properties:
+                    raw:
+                      description: Title for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML title for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The title for the post.
+                content:
+                  type: object
+                  properties:
+                    raw:
+                      description: Content for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML content for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      readonly: true
+                    block_version:
+                      description: Version of the content block format used by the post.
+                      type: integer
+                      context:
+                      - edit
+                      readonly: true
+                    protected:
+                      description: Whether the content is protected with a password.
+                      type: boolean
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The content for the post.
+                author:
+                  type: integer
+                  description: The ID for the author of the post.
+                excerpt:
+                  type: object
+                  properties:
+                    raw:
+                      description: Excerpt for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML excerpt for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                    protected:
+                      description: Whether the excerpt is protected with a password.
+                      type: boolean
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The excerpt for the post.
+                featured_media:
+                  type: integer
+                  description: The ID of the featured media for the post.
+                comment_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not comments are open on the post.
+                ping_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not the post can be pinged.
+                menu_order:
+                  type: integer
+                  description: The order of the post in relation to other posts.
+                meta:
+                  type: object
+                  properties:
+                    footnotes:
+                      type: string
+                      title: ''
+                      description: ''
+                      default: ''
+                  description: Meta fields.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    patch:
+      operationId: updatePagesById2
+      tags:
+      - pages
+      summary: Update page
+      description: Update a page via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the post.
+                password:
+                  type: string
+                  description: A password to protect access to the content and excerpt.
+                parent:
+                  type: integer
+                  description: The ID for the parent of the post.
+                title:
+                  type: object
+                  properties:
+                    raw:
+                      description: Title for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML title for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The title for the post.
+                content:
+                  type: object
+                  properties:
+                    raw:
+                      description: Content for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML content for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      readonly: true
+                    block_version:
+                      description: Version of the content block format used by the post.
+                      type: integer
+                      context:
+                      - edit
+                      readonly: true
+                    protected:
+                      description: Whether the content is protected with a password.
+                      type: boolean
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The content for the post.
+                author:
+                  type: integer
+                  description: The ID for the author of the post.
+                excerpt:
+                  type: object
+                  properties:
+                    raw:
+                      description: Excerpt for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML excerpt for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                    protected:
+                      description: Whether the excerpt is protected with a password.
+                      type: boolean
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The excerpt for the post.
+                featured_media:
+                  type: integer
+                  description: The ID of the featured media for the post.
+                comment_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not comments are open on the post.
+                ping_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not the post can be pinged.
+                menu_order:
+                  type: integer
+                  description: The order of the post in relation to other posts.
+                meta:
+                  type: object
+                  properties:
+                    footnotes:
+                      type: string
+                      title: ''
+                      description: ''
+                      default: ''
+                  description: Meta fields.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    delete:
+      operationId: deletePagesById
+      tags:
+      - pages
+      summary: Delete page
+      description: Delete a page via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: force
+        in: query
+        required: false
+        description: Whether to bypass Trash and force deletion.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/pages/{id}/autosaves:
+    get:
+      operationId: getPagesByIdAutosaves
+      tags:
+      - pages
+      summary: Retrieve a single page
+      description: Retrieve a single page by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: parent
+        in: query
+        required: false
+        description: The ID for the parent of the autosave.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createPagesByIdAutosaves
+      tags:
+      - pages
+      summary: Create or update page
+      description: Create or update a page via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parent:
+                  type: integer
+                  description: The ID for the parent of the post.
+                date:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the post.
+                password:
+                  type: string
+                  description: A password to protect access to the content and excerpt.
+                title:
+                  type: object
+                  properties:
+                    raw:
+                      description: Title for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML title for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The title for the post.
+                content:
+                  type: object
+                  properties:
+                    raw:
+                      description: Content for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML content for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      readonly: true
+                    block_version:
+                      description: Version of the content block format used by the post.
+                      type: integer
+                      context:
+                      - edit
+                      readonly: true
+                    protected:
+                      description: Whether the content is protected with a password.
+                      type: boolean
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The content for the post.
+                author:
+                  type: integer
+                  description: The ID for the author of the post.
+                excerpt:
+                  type: object
+                  properties:
+                    raw:
+                      description: Excerpt for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML excerpt for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                    protected:
+                      description: Whether the excerpt is protected with a password.
+                      type: boolean
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The excerpt for the post.
+                featured_media:
+                  type: integer
+                  description: The ID of the featured media for the post.
+                comment_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not comments are open on the post.
+                ping_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not the post can be pinged.
+                menu_order:
+                  type: integer
+                  description: The order of the post in relation to other posts.
+                meta:
+                  type: object
+                  properties:
+                    footnotes:
+                      type: string
+                      title: ''
+                      description: ''
+                      default: ''
+                  description: Meta fields.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/pages/{parent}/autosaves/{id}:
+    get:
+      operationId: getPagesByParentAutosavesById
+      tags:
+      - pages
+      summary: Retrieve a single page
+      description: Retrieve a single page by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: parent
+        in: path
+        required: true
+        description: WordPress route parameter parent.
+        schema:
+          type: integer
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+  /wp/v2/pages/{parent}/revisions:
+    get:
+      operationId: getPagesByParentRevisions
+      tags:
+      - pages
+      summary: Retrieve a single page
+      description: Retrieve a single page by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: parent
+        in: path
+        required: true
+        description: WordPress route parameter parent.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: page
+        in: query
+        required: false
+        description: Current page of the collection.
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+      - name: per_page
+        in: query
+        required: false
+        description: Maximum number of items to be returned in result set.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+      - name: search
+        in: query
+        required: false
+        description: Limit results to those matching a string.
+        schema:
+          type: string
+      - name: exclude
+        in: query
+        required: false
+        description: Ensure result set excludes specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: include
+        in: query
+        required: false
+        description: Limit result set to specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: offset
+        in: query
+        required: false
+        description: Offset the result set by a specific number of items.
+        schema:
+          type: integer
+      - name: order
+        in: query
+        required: false
+        description: Order sort attribute ascending or descending.
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      - name: orderby
+        in: query
+        required: false
+        description: Sort collection by object attribute.
+        schema:
+          type: string
+          default: date
+          enum:
+          - date
+          - id
+          - include
+          - relevance
+          - slug
+          - include_slugs
+          - title
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+  /wp/v2/pages/{parent}/revisions/{id}:
+    get:
+      operationId: getPagesByParentRevisionsById
+      tags:
+      - pages
+      summary: Retrieve a single page
+      description: Retrieve a single page by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: parent
+        in: path
+        required: true
+        description: WordPress route parameter parent.
+        schema:
+          type: integer
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    delete:
+      operationId: deletePagesByParentRevisionsById
+      tags:
+      - pages
+      summary: Delete page
+      description: Delete a page via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: parent
+        in: path
+        required: true
+        description: WordPress route parameter parent.
+        schema:
+          type: integer
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: force
+        in: query
+        required: false
+        description: Required to be true, as revisions do not support trashing.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+components:
+  schemas:
+    RestError:
+      title: rest-error
+      type: object
+      description: WordPress REST API error envelope, as returned by this API.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+    Page:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: page
+      type: object
+      properties:
+        date:
+          description: The date the post was published, in the site's timezone.
+          type:
+          - string
+          - 'null'
+          format: date-time
+          context:
+          - view
+          - edit
+          - embed
+        date_gmt:
+          description: The date the post was published, as GMT.
+          type:
+          - string
+          - 'null'
+          format: date-time
+          context:
+          - view
+          - edit
+        guid:
+          description: The globally unique identifier for the post.
+          type: object
+          context:
+          - view
+          - edit
+          readonly: true
+          properties:
+            raw:
+              description: GUID for the post, as it exists in the database.
+              type: string
+              context:
+              - edit
+              readonly: true
+            rendered:
+              description: GUID for the post, transformed for display.
+              type: string
+              context:
+              - view
+              - edit
+              readonly: true
+        id:
+          description: Unique identifier for the post.
+          type: integer
+          context:
+          - view
+          - edit
+          - embed
+          readonly: true
+        link:
+          description: URL to the post.
+          type: string
+          format: uri
+          context:
+          - view
+          - edit
+          - embed
+          readonly: true
+        modified:
+          description: The date the post was last modified, in the site's timezone.
+          type: string
+          format: date-time
+          context:
+          - view
+          - edit
+          readonly: true
+        modified_gmt:
+          description: The date the post was last modified, as GMT.
+          type: string
+          format: date-time
+          context:
+          - view
+          - edit
+          readonly: true
+        slug:
+          description: An alphanumeric identifier for the post unique to its type.
+          type: string
+          context:
+          - view
+          - edit
+          - embed
+        status:
+          description: A named status for the post.
+          type: string
+          enum:
+          - publish
+          - future
+          - draft
+          - pending
+          - private
+          - acf-disabled
+          context:
+          - view
+          - edit
+        type:
+          description: Type of post.
+          type: string
+          context:
+          - view
+          - edit
+          - embed
+          readonly: true
+        password:
+          description: A password to protect access to the content and excerpt.
+          type: string
+          context:
+          - edit
+        permalink_template:
+          description: Permalink template for the post.
+          type: string
+          context:
+          - edit
+          readonly: true
+        generated_slug:
+          description: Slug automatically generated from the post title.
+          type: string
+          context:
+          - edit
+          readonly: true
+        class_list:
+          description: An array of the class names for the post container element.
+          type: array
+          context:
+          - view
+          - edit
+          readonly: true
+          items:
+            type: string
+        parent:
+          description: The ID for the parent of the post.
+          type: integer
+          context:
+          - view
+          - edit
+        title:
+          description: The title for the post.
+          type: object
+          context:
+          - view
+          - edit
+          - embed
+          properties:
+            raw:
+              description: Title for the post, as it exists in the database.
+              type: string
+              context:
+              - edit
+            rendered:
+              description: HTML title for the post, transformed for display.
+              type: string
+              context:
+              - view
+              - edit
+              - embed
+              readonly: true
+        content:
+          description: The content for the post.
+          type: object
+          context:
+          - view
+          - edit
+          properties:
+            raw:
+              description: Content for the post, as it exists in the database.
+              type: string
+              context:
+              - edit
+            rendered:
+              description: HTML content for the post, transformed for display.
+              type: string
+              context:
+              - view
+              - edit
+              readonly: true
+            block_version:
+              description: Version of the content block format used by the post.
+              type: integer
+              context:
+              - edit
+              readonly: true
+            protected:
+              description: Whether the content is protected with a password.
+              type: boolean
+              context:
+              - view
+              - edit
+              - embed
+              readonly: true
+        author:
+          description: The ID for the author of the post.
+          type: integer
+          context:
+          - view
+          - edit
+          - embed
+        excerpt:
+          description: The excerpt for the post.
+          type: object
+          context:
+          - view
+          - edit
+          - embed
+          properties:
+            raw:
+              description: Excerpt for the post, as it exists in the database.
+              type: string
+              context:
+              - edit
+            rendered:
+              description: HTML excerpt for the post, transformed for display.
+              type: string
+              context:
+              - view
+              - edit
+              - embed
+              readonly: true
+            protected:
+              description: Whether the excerpt is protected with a password.
+              type: boolean
+              context:
+              - view
+              - edit
+              - embed
+              readonly: true
+        featured_media:
+          description: The ID of the featured media for the post.
+          type: integer
+          context:
+          - view
+          - edit
+          - embed
+        comment_status:
+          description: Whether or not comments are open on the post.
+          type: string
+          enum:
+          - open
+          - closed
+          context:
+          - view
+          - edit
+        ping_status:
+          description: Whether or not the post can be pinged.
+          type: string
+          enum:
+          - open
+          - closed
+          context:
+          - view
+          - edit
+        menu_order:
+          description: The order of the post in relation to other posts.
+          type: integer
+          context:
+          - view
+          - edit
+        meta:
+          description: Meta fields.
+          type: object
+          context:
+          - view
+          - edit
+          properties:
+            footnotes:
+              type: string
+              title: ''
+              description: ''
+              default: ''
+        template:
+          description: The theme file to use to display the post.
+          type: string
+          context:
+          - view
+          - edit
+        acf:
+          description: ACF field data
+          type: object
+          properties: []
+      links:
+      - rel: https://api.w.org/action-publish
+        title: The current user can publish this post.
+        href: https://www.starfishspace.com/wp-json/wp/v2/pages/{id}
+        targetSchema:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+              - publish
+              - future
+      - rel: https://api.w.org/action-unfiltered-html
+        title: The current user can post unfiltered HTML markup and JavaScript.
+        href: https://www.starfishspace.com/wp-json/wp/v2/pages/{id}
+        targetSchema:
+          type: object
+          properties:
+            content:
+              raw:
+                type: string
+      - rel: https://api.w.org/action-assign-author
+        title: The current user can change the author on this post.
+        href: https://www.starfishspace.com/wp-json/wp/v2/pages/{id}
+        targetSchema:
+          type: object
+          properties:
+            author:
+              type: integer
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application password (username + application password).
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress cookie authentication nonce, for same-origin requests.

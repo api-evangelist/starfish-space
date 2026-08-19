@@ -1,0 +1,208 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Starfish Space Website Content API (WordPress REST v2) Plugins API",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "plugins",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List plugins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/plugins",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Limits results to plugins with the given status."
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of plugins from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Create or update plugins",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/plugins",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create or update a plugin via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single plugin",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/plugins/:plugin",
+            "params": [
+              {
+                "name": "plugin",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter plugin."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single plugin by route parameter from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Create or update plugin",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/plugins/:plugin",
+            "params": [
+              {
+                "name": "plugin",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter plugin."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create or update a plugin via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Update plugin",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/plugins/:plugin",
+            "params": [
+              {
+                "name": "plugin",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter plugin."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Update a plugin via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Update plugin",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/plugins/:plugin",
+            "params": [
+              {
+                "name": "plugin",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter plugin."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Update a plugin via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Delete plugin",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/plugins/:plugin",
+            "params": [
+              {
+                "name": "plugin",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter plugin."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete a plugin via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

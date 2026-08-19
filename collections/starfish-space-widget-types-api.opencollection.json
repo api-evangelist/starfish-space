@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Starfish Space Website Content API (WordPress REST v2) Widget Types API",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "widget-types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List widget types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/widget-types",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of widget types from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single widget type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/widget-types/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single widget type by route parameter from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Create or update widget type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/widget-types/:id/encode",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create or update a widget type via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Create or update widget type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/widget-types/:id/render",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create or update a widget type via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,233 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Starfish Space Website Content API (WordPress REST v2) Global Styles API",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "global-styles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a single global style",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/global-styles/themes/:stylesheet",
+            "params": [
+              {
+                "name": "stylesheet",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter stylesheet."
+              }
+            ]
+          },
+          "docs": "Retrieve a single global style by route parameter from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single global style",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/global-styles/themes/:stylesheet/variations",
+            "params": [
+              {
+                "name": "stylesheet",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter stylesheet."
+              }
+            ]
+          },
+          "docs": "Retrieve a single global style by route parameter from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single global style",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/global-styles/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              }
+            ]
+          },
+          "docs": "Retrieve a single global style by route parameter from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Create or update global style",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/global-styles/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create or update a global style via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Update global style",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/global-styles/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Update a global style via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Update global style",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/global-styles/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Update a global style via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single global style",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/global-styles/:parent/revisions",
+            "params": [
+              {
+                "name": "parent",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter parent."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in result set."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset the result set by a specific number of items."
+              }
+            ]
+          },
+          "docs": "Retrieve a single global style by route parameter from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single global style",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/global-styles/:parent/revisions/:id",
+            "params": [
+              {
+                "name": "parent",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter parent."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter id."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single global style by route parameter from the Starfish Space WordPress REST API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

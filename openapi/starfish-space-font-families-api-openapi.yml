@@ -1,0 +1,853 @@
+openapi: 3.2.0
+info:
+  title: Starfish Space Website Content API (WordPress REST v2) Font Families API
+  version: '2'
+  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
+
+
+    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  contact:
+    name: Starfish Space
+    url: https://www.starfishspace.com/contact/
+  x-derived-from:
+  - https://www.starfishspace.com/wp-json/wp/v2
+  - https://www.starfishspace.com/wp-json/wp/v2/{resource} (HTTP OPTIONS)
+servers:
+- url: https://www.starfishspace.com/wp-json
+  description: Production
+tags:
+- name: font-families
+  description: Registered font families.
+paths:
+  /wp/v2/font-families:
+    get:
+      operationId: listFontFamilies
+      tags:
+      - font-families
+      summary: List font families
+      description: Retrieve a collection of font families from the Starfish Space WordPress REST API.
+      parameters:
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: page
+        in: query
+        required: false
+        description: Current page of the collection.
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+      - name: per_page
+        in: query
+        required: false
+        description: Maximum number of items to be returned in result set.
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+      - name: exclude
+        in: query
+        required: false
+        description: Ensure result set excludes specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: include
+        in: query
+        required: false
+        description: Limit result set to specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: search_semantics
+        in: query
+        required: false
+        description: How to interpret the search input.
+        schema:
+          type: string
+          enum:
+          - exact
+      - name: offset
+        in: query
+        required: false
+        description: Offset the result set by a specific number of items.
+        schema:
+          type: integer
+      - name: order
+        in: query
+        required: false
+        description: Order sort attribute ascending or descending.
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      - name: orderby
+        in: query
+        required: false
+        description: Sort collection by post attribute.
+        schema:
+          type: string
+          default: id
+          enum:
+          - id
+          - include
+      - name: slug
+        in: query
+        required: false
+        description: Limit result set to posts with one or more specific slugs.
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createFontFamilies
+      tags:
+      - font-families
+      summary: Create or update font families
+      description: Create or update a font familie via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                theme_json_version:
+                  type: integer
+                  default: 3
+                  minimum: 2
+                  maximum: 3
+                  description: Version of the theme.json schema used for the typography settings.
+                font_family_settings:
+                  type: string
+                  description: font-family declaration in theme.json format, encoded as a string.
+              required:
+              - font_family_settings
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/font-families/{font_family_id}/font-faces:
+    get:
+      operationId: getFontFamiliesByFont_family_idFontFaces
+      tags:
+      - font-families
+      summary: Retrieve a single font familie
+      description: Retrieve a single font familie by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: font_family_id
+        in: path
+        required: true
+        description: WordPress route parameter font_family_id.
+        schema:
+          type: string
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: page
+        in: query
+        required: false
+        description: Current page of the collection.
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+      - name: per_page
+        in: query
+        required: false
+        description: Maximum number of items to be returned in result set.
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+      - name: exclude
+        in: query
+        required: false
+        description: Ensure result set excludes specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: include
+        in: query
+        required: false
+        description: Limit result set to specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: search_semantics
+        in: query
+        required: false
+        description: How to interpret the search input.
+        schema:
+          type: string
+          enum:
+          - exact
+      - name: offset
+        in: query
+        required: false
+        description: Offset the result set by a specific number of items.
+        schema:
+          type: integer
+      - name: order
+        in: query
+        required: false
+        description: Order sort attribute ascending or descending.
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      - name: orderby
+        in: query
+        required: false
+        description: Sort collection by post attribute.
+        schema:
+          type: string
+          default: id
+          enum:
+          - id
+          - include
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createFontFamiliesByFont_family_idFontFaces
+      tags:
+      - font-families
+      summary: Create or update font familie
+      description: Create or update a font familie via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: font_family_id
+        in: path
+        required: true
+        description: WordPress route parameter font_family_id.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                theme_json_version:
+                  type: integer
+                  default: 3
+                  minimum: 2
+                  maximum: 3
+                  description: Version of the theme.json schema used for the typography settings.
+                font_face_settings:
+                  type: string
+                  description: font-face declaration in theme.json format, encoded as a string.
+              required:
+              - font_face_settings
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/font-families/{font_family_id}/font-faces/{id}:
+    get:
+      operationId: getFontFamiliesByFont_family_idFontFacesById
+      tags:
+      - font-families
+      summary: Retrieve a single font familie
+      description: Retrieve a single font familie by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: font_family_id
+        in: path
+        required: true
+        description: WordPress route parameter font_family_id.
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    delete:
+      operationId: deleteFontFamiliesByFont_family_idFontFacesById
+      tags:
+      - font-families
+      summary: Delete font familie
+      description: Delete a font familie via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: font_family_id
+        in: path
+        required: true
+        description: WordPress route parameter font_family_id.
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: force
+        in: query
+        required: false
+        description: Whether to bypass Trash and force deletion.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/font-families/{id}:
+    get:
+      operationId: getFontFamiliesById
+      tags:
+      - font-families
+      summary: Retrieve a single font familie
+      description: Retrieve a single font familie by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createFontFamiliesById
+      tags:
+      - font-families
+      summary: Create or update font familie
+      description: Create or update a font familie via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                theme_json_version:
+                  type: integer
+                  default: 3
+                  minimum: 2
+                  maximum: 3
+                  description: Version of the theme.json schema used for the typography settings.
+                font_family_settings:
+                  type: string
+                  description: font-family declaration in theme.json format, encoded as a string.
+              required:
+              - font_family_settings
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    put:
+      operationId: updateFontFamiliesById
+      tags:
+      - font-families
+      summary: Update font familie
+      description: Update a font familie via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                theme_json_version:
+                  type: integer
+                  default: 3
+                  minimum: 2
+                  maximum: 3
+                  description: Version of the theme.json schema used for the typography settings.
+                font_family_settings:
+                  type: string
+                  description: font-family declaration in theme.json format, encoded as a string.
+              required:
+              - font_family_settings
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    patch:
+      operationId: updateFontFamiliesById2
+      tags:
+      - font-families
+      summary: Update font familie
+      description: Update a font familie via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                theme_json_version:
+                  type: integer
+                  default: 3
+                  minimum: 2
+                  maximum: 3
+                  description: Version of the theme.json schema used for the typography settings.
+                font_family_settings:
+                  type: string
+                  description: font-family declaration in theme.json format, encoded as a string.
+              required:
+              - font_family_settings
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    delete:
+      operationId: deleteFontFamiliesById
+      tags:
+      - font-families
+      summary: Delete font familie
+      description: Delete a font familie via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: force
+        in: query
+        required: false
+        description: Whether to bypass Trash and force deletion.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+components:
+  schemas:
+    RestError:
+      title: rest-error
+      type: object
+      description: WordPress REST API error envelope, as returned by this API.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application password (username + application password).
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress cookie authentication nonce, for same-origin requests.

@@ -1,0 +1,543 @@
+openapi: 3.2.0
+info:
+  title: Starfish Space Website Content API (WordPress REST v2) Widgets API
+  version: '2'
+  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
+
+
+    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  contact:
+    name: Starfish Space
+    url: https://www.starfishspace.com/contact/
+  x-derived-from:
+  - https://www.starfishspace.com/wp-json/wp/v2
+  - https://www.starfishspace.com/wp-json/wp/v2/{resource} (HTTP OPTIONS)
+servers:
+- url: https://www.starfishspace.com/wp-json
+  description: Production
+tags:
+- name: widgets
+  description: Widgets.
+paths:
+  /wp/v2/widgets:
+    get:
+      operationId: listWidgets
+      tags:
+      - widgets
+      summary: List widgets
+      description: Retrieve a collection of widgets from the Starfish Space WordPress REST API.
+      parameters:
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: sidebar
+        in: query
+        required: false
+        description: The sidebar to return widgets for.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createWidgets
+      tags:
+      - widgets
+      summary: Create or update widgets
+      description: Create or update a widget via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Unique identifier for the widget.
+                id_base:
+                  type: string
+                  description: The type of the widget. Corresponds to ID in widget-types endpoint.
+                sidebar:
+                  default: wp_inactive_widgets
+                  type: string
+                  description: The sidebar the widget belongs to.
+                instance:
+                  type: object
+                  properties:
+                    encoded:
+                      description: Base64 encoded representation of the instance settings.
+                      type: string
+                      context:
+                      - edit
+                    hash:
+                      description: Cryptographic hash of the instance settings.
+                      type: string
+                      context:
+                      - edit
+                    raw:
+                      description: Unencoded instance settings, if supported.
+                      type: object
+                      context:
+                      - edit
+                  description: Instance settings of the widget, if supported.
+                form_data:
+                  type: string
+                  description: URL-encoded form data from the widget admin form. Used to update a widget that does not support instance. Write only.
+              required:
+              - sidebar
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/widgets/{id}:
+    get:
+      operationId: getWidgetsById
+      tags:
+      - widgets
+      summary: Retrieve a single widget
+      description: Retrieve a single widget by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createWidgetsById
+      tags:
+      - widgets
+      summary: Create or update widget
+      description: Create or update a widget via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_base:
+                  type: string
+                  description: The type of the widget. Corresponds to ID in widget-types endpoint.
+                sidebar:
+                  type: string
+                  description: The sidebar the widget belongs to.
+                instance:
+                  type: object
+                  properties:
+                    encoded:
+                      description: Base64 encoded representation of the instance settings.
+                      type: string
+                      context:
+                      - edit
+                    hash:
+                      description: Cryptographic hash of the instance settings.
+                      type: string
+                      context:
+                      - edit
+                    raw:
+                      description: Unencoded instance settings, if supported.
+                      type: object
+                      context:
+                      - edit
+                  description: Instance settings of the widget, if supported.
+                form_data:
+                  type: string
+                  description: URL-encoded form data from the widget admin form. Used to update a widget that does not support instance. Write only.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    put:
+      operationId: updateWidgetsById
+      tags:
+      - widgets
+      summary: Update widget
+      description: Update a widget via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_base:
+                  type: string
+                  description: The type of the widget. Corresponds to ID in widget-types endpoint.
+                sidebar:
+                  type: string
+                  description: The sidebar the widget belongs to.
+                instance:
+                  type: object
+                  properties:
+                    encoded:
+                      description: Base64 encoded representation of the instance settings.
+                      type: string
+                      context:
+                      - edit
+                    hash:
+                      description: Cryptographic hash of the instance settings.
+                      type: string
+                      context:
+                      - edit
+                    raw:
+                      description: Unencoded instance settings, if supported.
+                      type: object
+                      context:
+                      - edit
+                  description: Instance settings of the widget, if supported.
+                form_data:
+                  type: string
+                  description: URL-encoded form data from the widget admin form. Used to update a widget that does not support instance. Write only.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    patch:
+      operationId: updateWidgetsById2
+      tags:
+      - widgets
+      summary: Update widget
+      description: Update a widget via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_base:
+                  type: string
+                  description: The type of the widget. Corresponds to ID in widget-types endpoint.
+                sidebar:
+                  type: string
+                  description: The sidebar the widget belongs to.
+                instance:
+                  type: object
+                  properties:
+                    encoded:
+                      description: Base64 encoded representation of the instance settings.
+                      type: string
+                      context:
+                      - edit
+                    hash:
+                      description: Cryptographic hash of the instance settings.
+                      type: string
+                      context:
+                      - edit
+                    raw:
+                      description: Unencoded instance settings, if supported.
+                      type: object
+                      context:
+                      - edit
+                  description: Instance settings of the widget, if supported.
+                form_data:
+                  type: string
+                  description: URL-encoded form data from the widget admin form. Used to update a widget that does not support instance. Write only.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    delete:
+      operationId: deleteWidgetsById
+      tags:
+      - widgets
+      summary: Delete widget
+      description: Delete a widget via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: force
+        in: query
+        required: false
+        description: Whether to force removal of the widget, or move it to the inactive sidebar.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+components:
+  schemas:
+    RestError:
+      title: rest-error
+      type: object
+      description: WordPress REST API error envelope, as returned by this API.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application password (username + application password).
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress cookie authentication nonce, for same-origin requests.

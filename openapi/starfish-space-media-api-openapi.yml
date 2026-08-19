@@ -1,0 +1,1666 @@
+openapi: 3.2.0
+info:
+  title: Starfish Space Website Content API (WordPress REST v2) Media API
+  version: '2'
+  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
+
+
+    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  contact:
+    name: Starfish Space
+    url: https://www.starfishspace.com/contact/
+  x-derived-from:
+  - https://www.starfishspace.com/wp-json/wp/v2
+  - https://www.starfishspace.com/wp-json/wp/v2/{resource} (HTTP OPTIONS)
+servers:
+- url: https://www.starfishspace.com/wp-json
+  description: Production
+tags:
+- name: media
+  description: Media library attachments (images, documents).
+paths:
+  /wp/v2/media:
+    get:
+      operationId: listMedia
+      tags:
+      - media
+      summary: List media
+      description: Retrieve a collection of media from the Starfish Space WordPress REST API.
+      parameters:
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: page
+        in: query
+        required: false
+        description: Current page of the collection.
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+      - name: per_page
+        in: query
+        required: false
+        description: Maximum number of items to be returned in result set.
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+      - name: search
+        in: query
+        required: false
+        description: Limit results to those matching a string.
+        schema:
+          type: string
+      - name: after
+        in: query
+        required: false
+        description: Limit response to posts published after a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: modified_after
+        in: query
+        required: false
+        description: Limit response to posts modified after a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: author
+        in: query
+        required: false
+        description: Limit result set to posts assigned to specific authors.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: author_exclude
+        in: query
+        required: false
+        description: Ensure result set excludes posts assigned to specific authors.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: before
+        in: query
+        required: false
+        description: Limit response to posts published before a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: modified_before
+        in: query
+        required: false
+        description: Limit response to posts modified before a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: exclude
+        in: query
+        required: false
+        description: Ensure result set excludes specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: include
+        in: query
+        required: false
+        description: Limit result set to specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: search_semantics
+        in: query
+        required: false
+        description: How to interpret the search input.
+        schema:
+          type: string
+          enum:
+          - exact
+      - name: offset
+        in: query
+        required: false
+        description: Offset the result set by a specific number of items.
+        schema:
+          type: integer
+      - name: order
+        in: query
+        required: false
+        description: Order sort attribute ascending or descending.
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      - name: orderby
+        in: query
+        required: false
+        description: Sort collection by post attribute.
+        schema:
+          type: string
+          default: date
+          enum:
+          - author
+          - date
+          - id
+          - include
+          - modified
+          - parent
+          - relevance
+          - slug
+          - include_slugs
+          - title
+      - name: parent
+        in: query
+        required: false
+        description: Limit result set to items with particular parent IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: parent_exclude
+        in: query
+        required: false
+        description: Limit result set to all items except those of a particular parent ID.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: search_columns
+        in: query
+        required: false
+        description: Array of column names to be searched.
+        schema:
+          default: []
+          type: array
+          items:
+            enum:
+            - post_title
+            - post_content
+            - post_excerpt
+            type: string
+      - name: slug
+        in: query
+        required: false
+        description: Limit result set to posts with one or more specific slugs.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: status
+        in: query
+        required: false
+        description: Limit result set to posts assigned one or more statuses.
+        schema:
+          default: inherit
+          type: array
+          items:
+            enum:
+            - inherit
+            - private
+            - trash
+            type: string
+      - name: media_type
+        in: query
+        required: false
+        description: Limit result set to attachments of a particular media type or media types.
+        schema:
+          default: null
+          type: array
+          items:
+            type: string
+            enum:
+            - image
+            - video
+            - text
+            - application
+            - audio
+      - name: mime_type
+        in: query
+        required: false
+        description: Limit result set to attachments of a particular MIME type or MIME types.
+        schema:
+          default: null
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Attachment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createMedia
+      tags:
+      - media
+      summary: Create or update media
+      description: Create or update a media via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the post.
+                title:
+                  type: object
+                  properties:
+                    raw:
+                      description: Title for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML title for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The title for the post.
+                author:
+                  type: integer
+                  description: The ID for the author of the post.
+                featured_media:
+                  type: integer
+                  description: The ID of the featured media for the post.
+                comment_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not comments are open on the post.
+                ping_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not the post can be pinged.
+                meta:
+                  type: object
+                  properties: []
+                  description: Meta fields.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+                alt_text:
+                  type: string
+                  description: Alternative text to display when attachment is not displayed.
+                caption:
+                  type: object
+                  properties:
+                    raw:
+                      description: Caption for the attachment, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML caption for the attachment, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The attachment caption.
+                description:
+                  type: object
+                  properties:
+                    raw:
+                      description: Description for the attachment, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML description for the attachment, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      readonly: true
+                  description: The attachment description.
+                post:
+                  type: integer
+                  description: The ID for the associated post of the attachment.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/media/{id}:
+    get:
+      operationId: getMediaById
+      tags:
+      - media
+      summary: Retrieve a single media
+      description: Retrieve a single media by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createMediaById
+      tags:
+      - media
+      summary: Create or update media
+      description: Create or update a media via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the post.
+                title:
+                  type: object
+                  properties:
+                    raw:
+                      description: Title for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML title for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The title for the post.
+                author:
+                  type: integer
+                  description: The ID for the author of the post.
+                featured_media:
+                  type: integer
+                  description: The ID of the featured media for the post.
+                comment_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not comments are open on the post.
+                ping_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not the post can be pinged.
+                meta:
+                  type: object
+                  properties: []
+                  description: Meta fields.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+                alt_text:
+                  type: string
+                  description: Alternative text to display when attachment is not displayed.
+                caption:
+                  type: object
+                  properties:
+                    raw:
+                      description: Caption for the attachment, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML caption for the attachment, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The attachment caption.
+                description:
+                  type: object
+                  properties:
+                    raw:
+                      description: Description for the attachment, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML description for the attachment, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      readonly: true
+                  description: The attachment description.
+                post:
+                  type: integer
+                  description: The ID for the associated post of the attachment.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    put:
+      operationId: updateMediaById
+      tags:
+      - media
+      summary: Update media
+      description: Update a media via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the post.
+                title:
+                  type: object
+                  properties:
+                    raw:
+                      description: Title for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML title for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The title for the post.
+                author:
+                  type: integer
+                  description: The ID for the author of the post.
+                featured_media:
+                  type: integer
+                  description: The ID of the featured media for the post.
+                comment_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not comments are open on the post.
+                ping_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not the post can be pinged.
+                meta:
+                  type: object
+                  properties: []
+                  description: Meta fields.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+                alt_text:
+                  type: string
+                  description: Alternative text to display when attachment is not displayed.
+                caption:
+                  type: object
+                  properties:
+                    raw:
+                      description: Caption for the attachment, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML caption for the attachment, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The attachment caption.
+                description:
+                  type: object
+                  properties:
+                    raw:
+                      description: Description for the attachment, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML description for the attachment, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      readonly: true
+                  description: The attachment description.
+                post:
+                  type: integer
+                  description: The ID for the associated post of the attachment.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    patch:
+      operationId: updateMediaById2
+      tags:
+      - media
+      summary: Update media
+      description: Update a media via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, in the site's timezone.
+                date_gmt:
+                  type:
+                  - string
+                  - 'null'
+                  format: date-time
+                  description: The date the post was published, as GMT.
+                slug:
+                  type: string
+                  description: An alphanumeric identifier for the post unique to its type.
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the post.
+                title:
+                  type: object
+                  properties:
+                    raw:
+                      description: Title for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML title for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The title for the post.
+                author:
+                  type: integer
+                  description: The ID for the author of the post.
+                featured_media:
+                  type: integer
+                  description: The ID of the featured media for the post.
+                comment_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not comments are open on the post.
+                ping_status:
+                  type: string
+                  enum:
+                  - open
+                  - closed
+                  description: Whether or not the post can be pinged.
+                meta:
+                  type: object
+                  properties: []
+                  description: Meta fields.
+                template:
+                  type: string
+                  description: The theme file to use to display the post.
+                alt_text:
+                  type: string
+                  description: Alternative text to display when attachment is not displayed.
+                caption:
+                  type: object
+                  properties:
+                    raw:
+                      description: Caption for the attachment, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML caption for the attachment, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The attachment caption.
+                description:
+                  type: object
+                  properties:
+                    raw:
+                      description: Description for the attachment, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML description for the attachment, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      readonly: true
+                  description: The attachment description.
+                post:
+                  type: integer
+                  description: The ID for the associated post of the attachment.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    delete:
+      operationId: deleteMediaById
+      tags:
+      - media
+      summary: Delete media
+      description: Delete a media via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: force
+        in: query
+        required: false
+        description: Whether to bypass Trash and force deletion.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/media/{id}/edit:
+    post:
+      operationId: createMediaByIdEdit
+      tags:
+      - media
+      summary: Create or update media
+      description: Create or update a media via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                src:
+                  type: string
+                  format: uri
+                  description: URL to the edited image file.
+                modifiers:
+                  type: array
+                  items:
+                    description: Image edit.
+                    type: object
+                    required:
+                    - type
+                    - args
+                    oneOf:
+                    - title: Flip
+                      properties:
+                        type:
+                          description: Flip type.
+                          type: string
+                          enum:
+                          - flip
+                        args:
+                          description: Flip arguments.
+                          type: object
+                          required:
+                          - flip
+                          properties:
+                            flip:
+                              description: Flip direction.
+                              type: object
+                              required:
+                              - horizontal
+                              - vertical
+                              properties:
+                                horizontal:
+                                  description: Whether to flip in the horizontal direction.
+                                  type: boolean
+                                vertical:
+                                  description: Whether to flip in the vertical direction.
+                                  type: boolean
+                    - title: Rotation
+                      properties:
+                        type:
+                          description: Rotation type.
+                          type: string
+                          enum:
+                          - rotate
+                        args:
+                          description: Rotation arguments.
+                          type: object
+                          required:
+                          - angle
+                          properties:
+                            angle:
+                              description: Angle to rotate clockwise in degrees.
+                              type: number
+                    - title: Crop
+                      properties:
+                        type:
+                          description: Crop type.
+                          type: string
+                          enum:
+                          - crop
+                        args:
+                          description: Crop arguments.
+                          type: object
+                          required:
+                          - left
+                          - top
+                          - width
+                          - height
+                          properties:
+                            left:
+                              description: Horizontal position from the left to begin the crop as a percentage of the image width.
+                              type: number
+                            top:
+                              description: Vertical position from the top to begin the crop as a percentage of the image height.
+                              type: number
+                            width:
+                              description: Width of the crop as a percentage of the image width.
+                              type: number
+                            height:
+                              description: Height of the crop as a percentage of the image height.
+                              type: number
+                  description: Array of image edits.
+                rotation:
+                  type: integer
+                  minimum: 0
+                  maximum: 360
+                  description: 'The amount to rotate the image clockwise in degrees. DEPRECATED: Use `modifiers` instead.'
+                x:
+                  type: number
+                  minimum: 0
+                  maximum: 100
+                  description: 'As a percentage of the image, the x position to start the crop from. DEPRECATED: Use `modifiers` instead.'
+                y:
+                  type: number
+                  minimum: 0
+                  maximum: 100
+                  description: 'As a percentage of the image, the y position to start the crop from. DEPRECATED: Use `modifiers` instead.'
+                width:
+                  type: number
+                  minimum: 0
+                  maximum: 100
+                  description: 'As a percentage of the image, the width to crop the image to. DEPRECATED: Use `modifiers` instead.'
+                height:
+                  type: number
+                  minimum: 0
+                  maximum: 100
+                  description: 'As a percentage of the image, the height to crop the image to. DEPRECATED: Use `modifiers` instead.'
+                caption:
+                  type: object
+                  properties:
+                    raw:
+                      description: Caption for the attachment, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML caption for the attachment, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The attachment caption.
+                description:
+                  type: object
+                  properties:
+                    raw:
+                      description: Description for the attachment, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML description for the attachment, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      readonly: true
+                  description: The attachment description.
+                title:
+                  type: object
+                  properties:
+                    raw:
+                      description: Title for the post, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML title for the post, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The title for the post.
+                post:
+                  type: integer
+                  description: The ID for the associated post of the attachment.
+                alt_text:
+                  type: string
+                  description: Alternative text to display when attachment is not displayed.
+              required:
+              - src
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/media/{id}/post-process:
+    post:
+      operationId: createMediaByIdPostProcess
+      tags:
+      - media
+      summary: Create or update media
+      description: Create or update a media via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action:
+                  type: string
+                  enum:
+                  - create-image-subsizes
+              required:
+              - action
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+components:
+  schemas:
+    Attachment:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: attachment
+      type: object
+      properties:
+        date:
+          description: The date the post was published, in the site's timezone.
+          type:
+          - string
+          - 'null'
+          format: date-time
+          context:
+          - view
+          - edit
+          - embed
+        date_gmt:
+          description: The date the post was published, as GMT.
+          type:
+          - string
+          - 'null'
+          format: date-time
+          context:
+          - view
+          - edit
+        guid:
+          description: The globally unique identifier for the post.
+          type: object
+          context:
+          - view
+          - edit
+          readonly: true
+          properties:
+            raw:
+              description: GUID for the post, as it exists in the database.
+              type: string
+              context:
+              - edit
+              readonly: true
+            rendered:
+              description: GUID for the post, transformed for display.
+              type: string
+              context:
+              - view
+              - edit
+              readonly: true
+        id:
+          description: Unique identifier for the post.
+          type: integer
+          context:
+          - view
+          - edit
+          - embed
+          readonly: true
+        link:
+          description: URL to the post.
+          type: string
+          format: uri
+          context:
+          - view
+          - edit
+          - embed
+          readonly: true
+        modified:
+          description: The date the post was last modified, in the site's timezone.
+          type: string
+          format: date-time
+          context:
+          - view
+          - edit
+          readonly: true
+        modified_gmt:
+          description: The date the post was last modified, as GMT.
+          type: string
+          format: date-time
+          context:
+          - view
+          - edit
+          readonly: true
+        slug:
+          description: An alphanumeric identifier for the post unique to its type.
+          type: string
+          context:
+          - view
+          - edit
+          - embed
+        status:
+          description: A named status for the post.
+          type: string
+          enum:
+          - publish
+          - future
+          - draft
+          - pending
+          - private
+          - acf-disabled
+          context:
+          - view
+          - edit
+        type:
+          description: Type of post.
+          type: string
+          context:
+          - view
+          - edit
+          - embed
+          readonly: true
+        permalink_template:
+          description: Permalink template for the post.
+          type: string
+          context:
+          - edit
+          readonly: true
+        generated_slug:
+          description: Slug automatically generated from the post title.
+          type: string
+          context:
+          - edit
+          readonly: true
+        class_list:
+          description: An array of the class names for the post container element.
+          type: array
+          context:
+          - view
+          - edit
+          readonly: true
+          items:
+            type: string
+        title:
+          description: The title for the post.
+          type: object
+          context:
+          - view
+          - edit
+          - embed
+          properties:
+            raw:
+              description: Title for the post, as it exists in the database.
+              type: string
+              context:
+              - edit
+            rendered:
+              description: HTML title for the post, transformed for display.
+              type: string
+              context:
+              - view
+              - edit
+              - embed
+              readonly: true
+        author:
+          description: The ID for the author of the post.
+          type: integer
+          context:
+          - view
+          - edit
+          - embed
+        featured_media:
+          description: The ID of the featured media for the post.
+          type: integer
+          context:
+          - view
+          - edit
+          - embed
+        comment_status:
+          description: Whether or not comments are open on the post.
+          type: string
+          enum:
+          - open
+          - closed
+          context:
+          - view
+          - edit
+        ping_status:
+          description: Whether or not the post can be pinged.
+          type: string
+          enum:
+          - open
+          - closed
+          context:
+          - view
+          - edit
+        meta:
+          description: Meta fields.
+          type: object
+          context:
+          - view
+          - edit
+          properties: []
+        template:
+          description: The theme file to use to display the post.
+          type: string
+          context:
+          - view
+          - edit
+        acf:
+          description: ACF field data
+          type: object
+          properties: []
+        alt_text:
+          description: Alternative text to display when attachment is not displayed.
+          type: string
+          context:
+          - view
+          - edit
+          - embed
+        caption:
+          description: The attachment caption.
+          type: object
+          context:
+          - view
+          - edit
+          - embed
+          properties:
+            raw:
+              description: Caption for the attachment, as it exists in the database.
+              type: string
+              context:
+              - edit
+            rendered:
+              description: HTML caption for the attachment, transformed for display.
+              type: string
+              context:
+              - view
+              - edit
+              - embed
+              readonly: true
+        description:
+          description: The attachment description.
+          type: object
+          context:
+          - view
+          - edit
+          properties:
+            raw:
+              description: Description for the attachment, as it exists in the database.
+              type: string
+              context:
+              - edit
+            rendered:
+              description: HTML description for the attachment, transformed for display.
+              type: string
+              context:
+              - view
+              - edit
+              readonly: true
+        media_type:
+          description: Attachment type.
+          type: string
+          enum:
+          - image
+          - file
+          context:
+          - view
+          - edit
+          - embed
+          readonly: true
+        mime_type:
+          description: The attachment MIME type.
+          type: string
+          context:
+          - view
+          - edit
+          - embed
+          readonly: true
+        media_details:
+          description: Details about the media file, specific to its type.
+          type: object
+          context:
+          - view
+          - edit
+          - embed
+          readonly: true
+        post:
+          description: The ID for the associated post of the attachment.
+          type: integer
+          context:
+          - view
+          - edit
+        source_url:
+          description: URL to the original attachment file.
+          type: string
+          format: uri
+          context:
+          - view
+          - edit
+          - embed
+          readonly: true
+        missing_image_sizes:
+          description: List of the missing image sizes of the attachment.
+          type: array
+          items:
+            type: string
+          context:
+          - edit
+          readonly: true
+        filename:
+          description: Original attachment file name.
+          type: string
+          context:
+          - view
+          - edit
+          readonly: true
+        filesize:
+          description: Attachment file size in bytes.
+          type: integer
+          context:
+          - view
+          - edit
+          readonly: true
+        exif_orientation:
+          description: EXIF orientation value. Values 1-8 follow the EXIF specification, where 1 means no rotation needed.
+          type: integer
+          context:
+          - edit
+          readonly: true
+      links:
+      - rel: https://api.w.org/action-unfiltered-html
+        title: The current user can post unfiltered HTML markup and JavaScript.
+        href: https://www.starfishspace.com/wp-json/wp/v2/media/{id}
+        targetSchema:
+          type: object
+          properties:
+            content:
+              raw:
+                type: string
+      - rel: https://api.w.org/action-assign-author
+        title: The current user can change the author on this post.
+        href: https://www.starfishspace.com/wp-json/wp/v2/media/{id}
+        targetSchema:
+          type: object
+          properties:
+            author:
+              type: integer
+    RestError:
+      title: rest-error
+      type: object
+      description: WordPress REST API error envelope, as returned by this API.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application password (username + application password).
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress cookie authentication nonce, for same-origin requests.

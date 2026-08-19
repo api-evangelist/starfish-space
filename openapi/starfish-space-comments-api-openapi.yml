@@ -1,0 +1,1007 @@
+openapi: 3.2.0
+info:
+  title: Starfish Space Website Content API (WordPress REST v2) Comments API
+  version: '2'
+  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
+
+
+    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  contact:
+    name: Starfish Space
+    url: https://www.starfishspace.com/contact/
+  x-derived-from:
+  - https://www.starfishspace.com/wp-json/wp/v2
+  - https://www.starfishspace.com/wp-json/wp/v2/{resource} (HTTP OPTIONS)
+servers:
+- url: https://www.starfishspace.com/wp-json
+  description: Production
+tags:
+- name: comments
+  description: Comments on site content.
+paths:
+  /wp/v2/comments:
+    get:
+      operationId: listComments
+      tags:
+      - comments
+      summary: List comments
+      description: Retrieve a collection of comments from the Starfish Space WordPress REST API.
+      parameters:
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: page
+        in: query
+        required: false
+        description: Current page of the collection.
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+      - name: per_page
+        in: query
+        required: false
+        description: Maximum number of items to be returned in result set.
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+      - name: search
+        in: query
+        required: false
+        description: Limit results to those matching a string.
+        schema:
+          type: string
+      - name: after
+        in: query
+        required: false
+        description: Limit response to comments published after a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: author
+        in: query
+        required: false
+        description: Limit result set to comments assigned to specific user IDs. Requires authorization.
+        schema:
+          type: array
+          items:
+            type: integer
+      - name: author_exclude
+        in: query
+        required: false
+        description: Ensure result set excludes comments assigned to specific user IDs. Requires authorization.
+        schema:
+          type: array
+          items:
+            type: integer
+      - name: author_email
+        in: query
+        required: false
+        description: Limit result set to that from a specific author email. Requires authorization.
+        schema:
+          default: null
+          format: email
+          type: string
+      - name: before
+        in: query
+        required: false
+        description: Limit response to comments published before a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: exclude
+        in: query
+        required: false
+        description: Ensure result set excludes specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: include
+        in: query
+        required: false
+        description: Limit result set to specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: offset
+        in: query
+        required: false
+        description: Offset the result set by a specific number of items.
+        schema:
+          type: integer
+      - name: order
+        in: query
+        required: false
+        description: Order sort attribute ascending or descending.
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      - name: orderby
+        in: query
+        required: false
+        description: Sort collection by comment attribute.
+        schema:
+          type: string
+          default: date_gmt
+          enum:
+          - date
+          - date_gmt
+          - id
+          - include
+          - post
+          - parent
+          - type
+      - name: parent
+        in: query
+        required: false
+        description: Limit result set to comments of specific parent IDs.
+        schema:
+          default: []
+          type: array
+          items:
+            type: integer
+      - name: parent_exclude
+        in: query
+        required: false
+        description: Ensure result set excludes specific parent IDs.
+        schema:
+          default: []
+          type: array
+          items:
+            type: integer
+      - name: post
+        in: query
+        required: false
+        description: Limit result set to comments assigned to specific post IDs.
+        schema:
+          default: []
+          type: array
+          items:
+            type: integer
+      - name: status
+        in: query
+        required: false
+        description: Limit result set to comments assigned a specific status. Requires authorization.
+        schema:
+          default: approve
+          type: string
+      - name: type
+        in: query
+        required: false
+        description: Limit result set to comments assigned a specific type. Requires authorization.
+        schema:
+          default: comment
+          type: string
+      - name: password
+        in: query
+        required: false
+        description: The password for the post if it is password protected.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createComments
+      tags:
+      - comments
+      summary: Create or update comments
+      description: Create or update a comment via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                author:
+                  type: integer
+                  description: The ID of the user object, if author was a user.
+                author_email:
+                  type: string
+                  format: email
+                  description: Email address for the comment author.
+                author_ip:
+                  type: string
+                  format: ip
+                  description: IP address for the comment author.
+                author_name:
+                  type: string
+                  description: Display name for the comment author.
+                author_url:
+                  type: string
+                  format: uri
+                  description: URL for the comment author.
+                author_user_agent:
+                  type: string
+                  description: User agent for the comment author.
+                content:
+                  type: object
+                  properties:
+                    raw:
+                      description: Content for the comment, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML content for the comment, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The content for the comment.
+                date:
+                  type: string
+                  format: date-time
+                  description: The date the comment was published, in the site's timezone.
+                date_gmt:
+                  type: string
+                  format: date-time
+                  description: The date the comment was published, as GMT.
+                parent:
+                  default: 0
+                  type: integer
+                  description: The ID for the parent of the comment.
+                post:
+                  default: 0
+                  type: integer
+                  description: The ID of the associated post object.
+                status:
+                  type: string
+                  description: State of the comment.
+                meta:
+                  type: object
+                  properties:
+                    _wp_note_status:
+                      type: string
+                      title: ''
+                      description: Note resolution status
+                      default: ''
+                      enum:
+                      - resolved
+                      - reopen
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/comments/{id}:
+    get:
+      operationId: getCommentsById
+      tags:
+      - comments
+      summary: Retrieve a single comment
+      description: Retrieve a single comment by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: password
+        in: query
+        required: false
+        description: The password for the parent post of the comment (if the post is password protected).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createCommentsById
+      tags:
+      - comments
+      summary: Create or update comment
+      description: Create or update a comment via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                author:
+                  type: integer
+                  description: The ID of the user object, if author was a user.
+                author_email:
+                  type: string
+                  format: email
+                  description: Email address for the comment author.
+                author_ip:
+                  type: string
+                  format: ip
+                  description: IP address for the comment author.
+                author_name:
+                  type: string
+                  description: Display name for the comment author.
+                author_url:
+                  type: string
+                  format: uri
+                  description: URL for the comment author.
+                author_user_agent:
+                  type: string
+                  description: User agent for the comment author.
+                content:
+                  type: object
+                  properties:
+                    raw:
+                      description: Content for the comment, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML content for the comment, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The content for the comment.
+                date:
+                  type: string
+                  format: date-time
+                  description: The date the comment was published, in the site's timezone.
+                date_gmt:
+                  type: string
+                  format: date-time
+                  description: The date the comment was published, as GMT.
+                parent:
+                  type: integer
+                  description: The ID for the parent of the comment.
+                post:
+                  type: integer
+                  description: The ID of the associated post object.
+                status:
+                  type: string
+                  description: State of the comment.
+                meta:
+                  type: object
+                  properties:
+                    _wp_note_status:
+                      type: string
+                      title: ''
+                      description: Note resolution status
+                      default: ''
+                      enum:
+                      - resolved
+                      - reopen
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    put:
+      operationId: updateCommentsById
+      tags:
+      - comments
+      summary: Update comment
+      description: Update a comment via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                author:
+                  type: integer
+                  description: The ID of the user object, if author was a user.
+                author_email:
+                  type: string
+                  format: email
+                  description: Email address for the comment author.
+                author_ip:
+                  type: string
+                  format: ip
+                  description: IP address for the comment author.
+                author_name:
+                  type: string
+                  description: Display name for the comment author.
+                author_url:
+                  type: string
+                  format: uri
+                  description: URL for the comment author.
+                author_user_agent:
+                  type: string
+                  description: User agent for the comment author.
+                content:
+                  type: object
+                  properties:
+                    raw:
+                      description: Content for the comment, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML content for the comment, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The content for the comment.
+                date:
+                  type: string
+                  format: date-time
+                  description: The date the comment was published, in the site's timezone.
+                date_gmt:
+                  type: string
+                  format: date-time
+                  description: The date the comment was published, as GMT.
+                parent:
+                  type: integer
+                  description: The ID for the parent of the comment.
+                post:
+                  type: integer
+                  description: The ID of the associated post object.
+                status:
+                  type: string
+                  description: State of the comment.
+                meta:
+                  type: object
+                  properties:
+                    _wp_note_status:
+                      type: string
+                      title: ''
+                      description: Note resolution status
+                      default: ''
+                      enum:
+                      - resolved
+                      - reopen
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    patch:
+      operationId: updateCommentsById2
+      tags:
+      - comments
+      summary: Update comment
+      description: Update a comment via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                author:
+                  type: integer
+                  description: The ID of the user object, if author was a user.
+                author_email:
+                  type: string
+                  format: email
+                  description: Email address for the comment author.
+                author_ip:
+                  type: string
+                  format: ip
+                  description: IP address for the comment author.
+                author_name:
+                  type: string
+                  description: Display name for the comment author.
+                author_url:
+                  type: string
+                  format: uri
+                  description: URL for the comment author.
+                author_user_agent:
+                  type: string
+                  description: User agent for the comment author.
+                content:
+                  type: object
+                  properties:
+                    raw:
+                      description: Content for the comment, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML content for the comment, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The content for the comment.
+                date:
+                  type: string
+                  format: date-time
+                  description: The date the comment was published, in the site's timezone.
+                date_gmt:
+                  type: string
+                  format: date-time
+                  description: The date the comment was published, as GMT.
+                parent:
+                  type: integer
+                  description: The ID for the parent of the comment.
+                post:
+                  type: integer
+                  description: The ID of the associated post object.
+                status:
+                  type: string
+                  description: State of the comment.
+                meta:
+                  type: object
+                  properties:
+                    _wp_note_status:
+                      type: string
+                      title: ''
+                      description: Note resolution status
+                      default: ''
+                      enum:
+                      - resolved
+                      - reopen
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    delete:
+      operationId: deleteCommentsById
+      tags:
+      - comments
+      summary: Delete comment
+      description: Delete a comment via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: force
+        in: query
+        required: false
+        description: Whether to bypass Trash and force deletion.
+        schema:
+          type: boolean
+          default: false
+      - name: password
+        in: query
+        required: false
+        description: The password for the parent post of the comment (if the post is password protected).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+components:
+  schemas:
+    RestError:
+      title: rest-error
+      type: object
+      description: WordPress REST API error envelope, as returned by this API.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+    Comment:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: comment
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the comment.
+          type: integer
+          context:
+          - view
+          - edit
+          - embed
+          readonly: true
+        author:
+          description: The ID of the user object, if author was a user.
+          type: integer
+          context:
+          - view
+          - edit
+          - embed
+        author_email:
+          description: Email address for the comment author.
+          type: string
+          format: email
+          context:
+          - edit
+        author_ip:
+          description: IP address for the comment author.
+          type: string
+          format: ip
+          context:
+          - edit
+        author_name:
+          description: Display name for the comment author.
+          type: string
+          context:
+          - view
+          - edit
+          - embed
+        author_url:
+          description: URL for the comment author.
+          type: string
+          format: uri
+          context:
+          - view
+          - edit
+          - embed
+        author_user_agent:
+          description: User agent for the comment author.
+          type: string
+          context:
+          - edit
+        content:
+          description: The content for the comment.
+          type: object
+          context:
+          - view
+          - edit
+          - embed
+          properties:
+            raw:
+              description: Content for the comment, as it exists in the database.
+              type: string
+              context:
+              - edit
+            rendered:
+              description: HTML content for the comment, transformed for display.
+              type: string
+              context:
+              - view
+              - edit
+              - embed
+              readonly: true
+        date:
+          description: The date the comment was published, in the site's timezone.
+          type: string
+          format: date-time
+          context:
+          - view
+          - edit
+          - embed
+        date_gmt:
+          description: The date the comment was published, as GMT.
+          type: string
+          format: date-time
+          context:
+          - view
+          - edit
+        link:
+          description: URL to the comment.
+          type: string
+          format: uri
+          context:
+          - view
+          - edit
+          - embed
+          readonly: true
+        parent:
+          description: The ID for the parent of the comment.
+          type: integer
+          context:
+          - view
+          - edit
+          - embed
+          default: 0
+        post:
+          description: The ID of the associated post object.
+          type: integer
+          context:
+          - view
+          - edit
+          default: 0
+        status:
+          description: State of the comment.
+          type: string
+          context:
+          - view
+          - edit
+        type:
+          description: Type of the comment.
+          type: string
+          context:
+          - view
+          - edit
+          - embed
+          readonly: true
+          default: comment
+        meta:
+          description: Meta fields.
+          type: object
+          context:
+          - view
+          - edit
+          properties:
+            _wp_note_status:
+              type: string
+              title: ''
+              description: Note resolution status
+              default: ''
+              enum:
+              - resolved
+              - reopen
+        acf:
+          description: ACF field data
+          type: object
+          properties: []
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application password (username + application password).
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress cookie authentication nonce, for same-origin requests.

@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Starfish Space Website Content API (WordPress REST v2) Taxonomies API",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "taxonomies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List taxonomies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/taxonomies",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to taxonomies associated with a specific post type."
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of taxonomies from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single taxonomie",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/taxonomies/:taxonomy",
+            "params": [
+              {
+                "name": "taxonomy",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter taxonomy."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single taxonomie by route parameter from the Starfish Space WordPress REST API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Starfish Space Website Content API (WordPress REST v2) Themes API",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "themes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List themes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/themes",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to themes assigned one or more statuses."
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of themes from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single theme",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/themes/:stylesheet",
+            "params": [
+              {
+                "name": "stylesheet",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter stylesheet."
+              }
+            ]
+          },
+          "docs": "Retrieve a single theme by route parameter from the Starfish Space WordPress REST API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

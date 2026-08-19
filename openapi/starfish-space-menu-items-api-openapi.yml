@@ -1,0 +1,1257 @@
+openapi: 3.2.0
+info:
+  title: Starfish Space Website Content API (WordPress REST v2) Menu Items API
+  version: '2'
+  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
+
+
+    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  contact:
+    name: Starfish Space
+    url: https://www.starfishspace.com/contact/
+  x-derived-from:
+  - https://www.starfishspace.com/wp-json/wp/v2
+  - https://www.starfishspace.com/wp-json/wp/v2/{resource} (HTTP OPTIONS)
+servers:
+- url: https://www.starfishspace.com/wp-json
+  description: Production
+tags:
+- name: menu-items
+  description: Navigation menu items.
+paths:
+  /wp/v2/menu-items:
+    get:
+      operationId: listMenuItems
+      tags:
+      - menu-items
+      summary: List menu items
+      description: Retrieve a collection of menu items from the Starfish Space WordPress REST API.
+      parameters:
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: page
+        in: query
+        required: false
+        description: Current page of the collection.
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+      - name: per_page
+        in: query
+        required: false
+        description: Maximum number of items to be returned in result set.
+        schema:
+          type: integer
+          default: 100
+          minimum: 1
+          maximum: 100
+      - name: search
+        in: query
+        required: false
+        description: Limit results to those matching a string.
+        schema:
+          type: string
+      - name: after
+        in: query
+        required: false
+        description: Limit response to posts published after a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: modified_after
+        in: query
+        required: false
+        description: Limit response to posts modified after a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: before
+        in: query
+        required: false
+        description: Limit response to posts published before a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: modified_before
+        in: query
+        required: false
+        description: Limit response to posts modified before a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: exclude
+        in: query
+        required: false
+        description: Ensure result set excludes specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: include
+        in: query
+        required: false
+        description: Limit result set to specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: search_semantics
+        in: query
+        required: false
+        description: How to interpret the search input.
+        schema:
+          type: string
+          enum:
+          - exact
+      - name: offset
+        in: query
+        required: false
+        description: Offset the result set by a specific number of items.
+        schema:
+          type: integer
+      - name: order
+        in: query
+        required: false
+        description: Order sort attribute ascending or descending.
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      - name: orderby
+        in: query
+        required: false
+        description: Sort collection by object attribute.
+        schema:
+          type: string
+          default: menu_order
+          enum:
+          - author
+          - date
+          - id
+          - include
+          - modified
+          - parent
+          - relevance
+          - slug
+          - include_slugs
+          - title
+          - menu_order
+      - name: search_columns
+        in: query
+        required: false
+        description: Array of column names to be searched.
+        schema:
+          default: []
+          type: array
+          items:
+            enum:
+            - post_title
+            - post_content
+            - post_excerpt
+            type: string
+      - name: slug
+        in: query
+        required: false
+        description: Limit result set to posts with one or more specific slugs.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: status
+        in: query
+        required: false
+        description: Limit result set to posts assigned one or more statuses.
+        schema:
+          default: publish
+          type: array
+          items:
+            enum:
+            - publish
+            - future
+            - draft
+            - pending
+            - private
+            - trash
+            - auto-draft
+            - inherit
+            - request-pending
+            - request-confirmed
+            - request-failed
+            - request-completed
+            - acf-disabled
+            - any
+            type: string
+      - name: tax_relation
+        in: query
+        required: false
+        description: Limit result set based on relationship between multiple taxonomies.
+        schema:
+          type: string
+          enum:
+          - AND
+          - OR
+      - name: menus
+        in: query
+        required: false
+        description: Limit result set to items with specific terms assigned in the menus taxonomy.
+        schema:
+          type:
+          - object
+          - array
+          oneOf:
+          - title: Term ID List
+            description: Match terms with the listed IDs.
+            type: array
+            items:
+              type: integer
+          - title: Term ID Taxonomy Query
+            description: Perform an advanced term query.
+            type: object
+            properties:
+              terms:
+                description: Term IDs.
+                type: array
+                items:
+                  type: integer
+                default: []
+              operator:
+                description: Whether items must be assigned all or any of the specified terms.
+                type: string
+                enum:
+                - AND
+                - OR
+                default: OR
+            additionalProperties: false
+      - name: menus_exclude
+        in: query
+        required: false
+        description: Limit result set to items except those with specific terms assigned in the menus taxonomy.
+        schema:
+          type:
+          - object
+          - array
+          oneOf:
+          - title: Term ID List
+            description: Match terms with the listed IDs.
+            type: array
+            items:
+              type: integer
+          - title: Term ID Taxonomy Query
+            description: Perform an advanced term query.
+            type: object
+            properties:
+              terms:
+                description: Term IDs.
+                type: array
+                items:
+                  type: integer
+                default: []
+            additionalProperties: false
+      - name: menu_order
+        in: query
+        required: false
+        description: Limit result set to posts with a specific menu_order value.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createMenuItems
+      tags:
+      - menu-items
+      summary: Create or update menu items
+      description: Create or update a menu item via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type:
+                  - string
+                  - object
+                  properties:
+                    raw:
+                      description: Title for the object, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML title for the object, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The title for the object.
+                type:
+                  default: custom
+                  type: string
+                  enum:
+                  - taxonomy
+                  - post_type
+                  - post_type_archive
+                  - custom
+                  description: The family of objects originally represented, such as "post_type" or "taxonomy".
+                status:
+                  default: publish
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the object.
+                parent:
+                  default: 0
+                  type: integer
+                  minimum: 0
+                  description: The ID for the parent of the object.
+                attr_title:
+                  type: string
+                  description: Text for the title attribute of the link element for this menu item.
+                classes:
+                  type: array
+                  items:
+                    type: string
+                  description: Class names for the link element of this menu item.
+                description:
+                  type: string
+                  description: The description of this menu item.
+                menu_order:
+                  default: 1
+                  type: integer
+                  minimum: 1
+                  description: The DB ID of the nav_menu_item that is this item's menu parent, if any, otherwise 0.
+                object:
+                  type: string
+                  description: The type of object originally represented, such as "category", "post", or "attachment".
+                object_id:
+                  default: 0
+                  type: integer
+                  minimum: 0
+                  description: The database ID of the original object this menu item represents, for example the ID for posts or the term_id for categories.
+                target:
+                  type: string
+                  enum:
+                  - _blank
+                  - ''
+                  description: The target attribute of the link element for this menu item.
+                url:
+                  type: string
+                  format: uri
+                  description: The URL to which this menu item points.
+                xfn:
+                  type: array
+                  items:
+                    type: string
+                  description: The XFN relationship expressed in the link of this menu item.
+                menus:
+                  type: integer
+                  description: The terms assigned to the object in the nav_menu taxonomy.
+                meta:
+                  type: object
+                  properties: []
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/menu-items/{id}:
+    get:
+      operationId: getMenuItemsById
+      tags:
+      - menu-items
+      summary: Retrieve a single menu item
+      description: Retrieve a single menu item by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createMenuItemsById
+      tags:
+      - menu-items
+      summary: Create or update menu item
+      description: Create or update a menu item via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type:
+                  - string
+                  - object
+                  properties:
+                    raw:
+                      description: Title for the object, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML title for the object, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The title for the object.
+                type:
+                  type: string
+                  enum:
+                  - taxonomy
+                  - post_type
+                  - post_type_archive
+                  - custom
+                  description: The family of objects originally represented, such as "post_type" or "taxonomy".
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the object.
+                parent:
+                  type: integer
+                  minimum: 0
+                  description: The ID for the parent of the object.
+                attr_title:
+                  type: string
+                  description: Text for the title attribute of the link element for this menu item.
+                classes:
+                  type: array
+                  items:
+                    type: string
+                  description: Class names for the link element of this menu item.
+                description:
+                  type: string
+                  description: The description of this menu item.
+                menu_order:
+                  type: integer
+                  minimum: 1
+                  description: The DB ID of the nav_menu_item that is this item's menu parent, if any, otherwise 0.
+                object:
+                  type: string
+                  description: The type of object originally represented, such as "category", "post", or "attachment".
+                object_id:
+                  type: integer
+                  minimum: 0
+                  description: The database ID of the original object this menu item represents, for example the ID for posts or the term_id for categories.
+                target:
+                  type: string
+                  enum:
+                  - _blank
+                  - ''
+                  description: The target attribute of the link element for this menu item.
+                url:
+                  type: string
+                  format: uri
+                  description: The URL to which this menu item points.
+                xfn:
+                  type: array
+                  items:
+                    type: string
+                  description: The XFN relationship expressed in the link of this menu item.
+                menus:
+                  type: integer
+                  description: The terms assigned to the object in the nav_menu taxonomy.
+                meta:
+                  type: object
+                  properties: []
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    put:
+      operationId: updateMenuItemsById
+      tags:
+      - menu-items
+      summary: Update menu item
+      description: Update a menu item via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type:
+                  - string
+                  - object
+                  properties:
+                    raw:
+                      description: Title for the object, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML title for the object, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The title for the object.
+                type:
+                  type: string
+                  enum:
+                  - taxonomy
+                  - post_type
+                  - post_type_archive
+                  - custom
+                  description: The family of objects originally represented, such as "post_type" or "taxonomy".
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the object.
+                parent:
+                  type: integer
+                  minimum: 0
+                  description: The ID for the parent of the object.
+                attr_title:
+                  type: string
+                  description: Text for the title attribute of the link element for this menu item.
+                classes:
+                  type: array
+                  items:
+                    type: string
+                  description: Class names for the link element of this menu item.
+                description:
+                  type: string
+                  description: The description of this menu item.
+                menu_order:
+                  type: integer
+                  minimum: 1
+                  description: The DB ID of the nav_menu_item that is this item's menu parent, if any, otherwise 0.
+                object:
+                  type: string
+                  description: The type of object originally represented, such as "category", "post", or "attachment".
+                object_id:
+                  type: integer
+                  minimum: 0
+                  description: The database ID of the original object this menu item represents, for example the ID for posts or the term_id for categories.
+                target:
+                  type: string
+                  enum:
+                  - _blank
+                  - ''
+                  description: The target attribute of the link element for this menu item.
+                url:
+                  type: string
+                  format: uri
+                  description: The URL to which this menu item points.
+                xfn:
+                  type: array
+                  items:
+                    type: string
+                  description: The XFN relationship expressed in the link of this menu item.
+                menus:
+                  type: integer
+                  description: The terms assigned to the object in the nav_menu taxonomy.
+                meta:
+                  type: object
+                  properties: []
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    patch:
+      operationId: updateMenuItemsById2
+      tags:
+      - menu-items
+      summary: Update menu item
+      description: Update a menu item via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type:
+                  - string
+                  - object
+                  properties:
+                    raw:
+                      description: Title for the object, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML title for the object, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The title for the object.
+                type:
+                  type: string
+                  enum:
+                  - taxonomy
+                  - post_type
+                  - post_type_archive
+                  - custom
+                  description: The family of objects originally represented, such as "post_type" or "taxonomy".
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the object.
+                parent:
+                  type: integer
+                  minimum: 0
+                  description: The ID for the parent of the object.
+                attr_title:
+                  type: string
+                  description: Text for the title attribute of the link element for this menu item.
+                classes:
+                  type: array
+                  items:
+                    type: string
+                  description: Class names for the link element of this menu item.
+                description:
+                  type: string
+                  description: The description of this menu item.
+                menu_order:
+                  type: integer
+                  minimum: 1
+                  description: The DB ID of the nav_menu_item that is this item's menu parent, if any, otherwise 0.
+                object:
+                  type: string
+                  description: The type of object originally represented, such as "category", "post", or "attachment".
+                object_id:
+                  type: integer
+                  minimum: 0
+                  description: The database ID of the original object this menu item represents, for example the ID for posts or the term_id for categories.
+                target:
+                  type: string
+                  enum:
+                  - _blank
+                  - ''
+                  description: The target attribute of the link element for this menu item.
+                url:
+                  type: string
+                  format: uri
+                  description: The URL to which this menu item points.
+                xfn:
+                  type: array
+                  items:
+                    type: string
+                  description: The XFN relationship expressed in the link of this menu item.
+                menus:
+                  type: integer
+                  description: The terms assigned to the object in the nav_menu taxonomy.
+                meta:
+                  type: object
+                  properties: []
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+    delete:
+      operationId: deleteMenuItemsById
+      tags:
+      - menu-items
+      summary: Delete menu item
+      description: Delete a menu item via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: force
+        in: query
+        required: false
+        description: Whether to bypass Trash and force deletion.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/menu-items/{id}/autosaves:
+    get:
+      operationId: getMenuItemsByIdAutosaves
+      tags:
+      - menu-items
+      summary: Retrieve a single menu item
+      description: Retrieve a single menu item by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: parent
+        in: query
+        required: false
+        description: The ID for the parent of the autosave.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+    post:
+      operationId: createMenuItemsByIdAutosaves
+      tags:
+      - menu-items
+      summary: Create or update menu item
+      description: Create or update a menu item via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parent:
+                  type: integer
+                  minimum: 0
+                  description: The ID for the parent of the object.
+                title:
+                  type:
+                  - string
+                  - object
+                  properties:
+                    raw:
+                      description: Title for the object, as it exists in the database.
+                      type: string
+                      context:
+                      - edit
+                    rendered:
+                      description: HTML title for the object, transformed for display.
+                      type: string
+                      context:
+                      - view
+                      - edit
+                      - embed
+                      readonly: true
+                  description: The title for the object.
+                type:
+                  type: string
+                  enum:
+                  - taxonomy
+                  - post_type
+                  - post_type_archive
+                  - custom
+                  description: The family of objects originally represented, such as "post_type" or "taxonomy".
+                status:
+                  type: string
+                  enum:
+                  - publish
+                  - future
+                  - draft
+                  - pending
+                  - private
+                  - acf-disabled
+                  description: A named status for the object.
+                attr_title:
+                  type: string
+                  description: Text for the title attribute of the link element for this menu item.
+                classes:
+                  type: array
+                  items:
+                    type: string
+                  description: Class names for the link element of this menu item.
+                description:
+                  type: string
+                  description: The description of this menu item.
+                menu_order:
+                  type: integer
+                  minimum: 1
+                  description: The DB ID of the nav_menu_item that is this item's menu parent, if any, otherwise 0.
+                object:
+                  type: string
+                  description: The type of object originally represented, such as "category", "post", or "attachment".
+                object_id:
+                  type: integer
+                  minimum: 0
+                  description: The database ID of the original object this menu item represents, for example the ID for posts or the term_id for categories.
+                target:
+                  type: string
+                  enum:
+                  - _blank
+                  - ''
+                  description: The target attribute of the link element for this menu item.
+                url:
+                  type: string
+                  format: uri
+                  description: The URL to which this menu item points.
+                xfn:
+                  type: array
+                  items:
+                    type: string
+                  description: The XFN relationship expressed in the link of this menu item.
+                menus:
+                  type: integer
+                  description: The terms assigned to the object in the nav_menu taxonomy.
+                meta:
+                  type: object
+                  properties: []
+                  description: Meta fields.
+      security:
+      - basicAuth: []
+      - cookieNonce: []
+  /wp/v2/menu-items/{parent}/autosaves/{id}:
+    get:
+      operationId: getMenuItemsByParentAutosavesById
+      tags:
+      - menu-items
+      summary: Retrieve a single menu item
+      description: Retrieve a single menu item by route parameter from the Starfish Space WordPress REST API.
+      parameters:
+      - name: parent
+        in: path
+        required: true
+        description: WordPress route parameter parent.
+        schema:
+          type: integer
+      - name: id
+        in: path
+        required: true
+        description: WordPress route parameter id.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '401':
+          description: Authentication required.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '403':
+          description: Not allowed for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+        '404':
+          description: No route or resource matched the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+components:
+  schemas:
+    RestError:
+      title: rest-error
+      type: object
+      description: WordPress REST API error envelope, as returned by this API.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: WordPress application password (username + application password).
+    cookieNonce:
+      type: apiKey
+      in: header
+      name: X-WP-Nonce
+      description: WordPress cookie authentication nonce, for same-origin requests.

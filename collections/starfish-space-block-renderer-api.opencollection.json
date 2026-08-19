@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Starfish Space Website Content API (WordPress REST v2) Block Renderer API",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "block-renderer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a single block renderer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/block-renderer/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter name."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              },
+              {
+                "name": "attributes",
+                "value": "",
+                "type": "query",
+                "description": "Attributes for the block."
+              },
+              {
+                "name": "post_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the post context."
+              }
+            ]
+          },
+          "docs": "Retrieve a single block renderer by route parameter from the Starfish Space WordPress REST API."
+        },
+        {
+          "info": {
+            "name": "Create or update block renderer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.starfishspace.com/wp-json/wp/v2/block-renderer/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "WordPress route parameter name."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create or update a block renderer via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
