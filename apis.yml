@@ -34,6 +34,17 @@ tags:
 - Space Robotics
 - Defense
 - Content Management
+- MCP
+tags_raw:
+- Company
+- Aerospace
+- Space
+- Satellites
+- Satellite Servicing
+- Spacecraft
+- Space Robotics
+- Defense
+- Content Management
 - Model Context Protocol
 apis:
 - name: Starfish Space MCP Server
@@ -46,6 +57,10 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/mcp/mcp-oauth-server
   tags:
+  - MCP
+  - Agents
+  - Authentication
+  tags_raw:
   - Model Context Protocol
   - Agents
   - OAuth
@@ -124,6 +139,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Blocks
+  tags_raw:
   - blocks
   properties:
   - type: OpenAPI
@@ -140,6 +157,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Categories
+  tags_raw:
   - categories
   properties:
   - type: OpenAPI
@@ -156,6 +175,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Comments
+  tags_raw:
   - comments
   properties:
   - type: OpenAPI
@@ -220,6 +241,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Icons
+  tags_raw:
   - icons
   properties:
   - type: OpenAPI
@@ -236,6 +259,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Media
+  tags_raw:
   - media
   properties:
   - type: OpenAPI
@@ -252,6 +277,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Menu Items
+  tags_raw:
   - menu-items
   properties:
   - type: OpenAPI
@@ -284,6 +311,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Menus
+  tags_raw:
   - menus
   properties:
   - type: OpenAPI
@@ -300,6 +329,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Navigation
+  tags_raw:
   - navigation
   properties:
   - type: OpenAPI
@@ -316,6 +347,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Pages
+  tags_raw:
   - pages
   properties:
   - type: OpenAPI
@@ -348,6 +381,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Plugins
+  tags_raw:
   - plugins
   properties:
   - type: OpenAPI
@@ -364,6 +399,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Posts
+  tags_raw:
   - posts
   properties:
   - type: OpenAPI
@@ -380,6 +417,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Search
+  tags_raw:
   - search
   properties:
   - type: OpenAPI
@@ -396,6 +435,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Settings
+  tags_raw:
   - settings
   properties:
   - type: OpenAPI
@@ -428,6 +469,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Status
+  tags_raw:
   - statuses
   properties:
   - type: OpenAPI
@@ -444,6 +487,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Tags
+  tags_raw:
   - tags
   properties:
   - type: OpenAPI
@@ -492,6 +537,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Templates
+  tags_raw:
   - templates
   properties:
   - type: OpenAPI
@@ -508,6 +555,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Themes
+  tags_raw:
   - themes
   properties:
   - type: OpenAPI
@@ -524,6 +573,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Types
+  tags_raw:
   - types
   properties:
   - type: OpenAPI
@@ -540,6 +591,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - User
+  tags_raw:
   - users
   properties:
   - type: OpenAPI
@@ -572,6 +625,8 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
+  - Widgets
+  tags_raw:
   - widgets
   properties:
   - type: OpenAPI
@@ -587,7 +642,8 @@ apis:
   description: wp_pattern_category routes.
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
-  tags:
+  tags: []
+  tags_raw:
   - wp_pattern_category
   properties:
   - type: OpenAPI
