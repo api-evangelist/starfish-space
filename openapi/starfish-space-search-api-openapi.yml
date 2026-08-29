@@ -139,6 +139,23 @@ paths:
                 $ref: '#/components/schemas/RestError'
 components:
   schemas:
+    RestError:
+      title: rest-error
+      type: object
+      description: WordPress REST API error envelope, as returned by this API.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
     SearchResult:
       $schema: http://json-schema.org/draft-04/schema#
       title: search-result
@@ -191,23 +208,6 @@ components:
           - view
           - embed
           readonly: true
-    RestError:
-      title: rest-error
-      type: object
-      description: WordPress REST API error envelope, as returned by this API.
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code.
-        message:
-          type: string
-          description: Human-readable error message.
-        data:
-          type: object
-          properties:
-            status:
-              type: integer
-              description: HTTP status code.
   securitySchemes:
     basicAuth:
       type: http

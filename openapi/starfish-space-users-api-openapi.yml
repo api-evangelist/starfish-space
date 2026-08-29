@@ -1788,6 +1788,23 @@ paths:
       - cookieNonce: []
 components:
   schemas:
+    RestError:
+      title: rest-error
+      type: object
+      description: WordPress REST API error envelope, as returned by this API.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
     User:
       $schema: http://json-schema.org/draft-04/schema#
       title: user
@@ -1931,23 +1948,6 @@ components:
           description: ACF field data
           type: object
           properties: []
-    RestError:
-      title: rest-error
-      type: object
-      description: WordPress REST API error envelope, as returned by this API.
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code.
-        message:
-          type: string
-          description: Human-readable error message.
-        data:
-          type: object
-          properties:
-            status:
-              type: integer
-              description: HTTP status code.
   securitySchemes:
     basicAuth:
       type: http
