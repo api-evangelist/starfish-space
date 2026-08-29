@@ -10,6 +10,17 @@ description: 'Starfish Space is a satellite-servicing company founded in 2019 by
   vehicle. Starfish Space publishes no developer product API; the machine-readable surface catalogued
   here is the public WordPress REST API and the OAuth-protected Model Context Protocol (MCP) server
   served from starfishspace.com.'
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 image: https://www.starfishspace.com/wp-content/uploads/2023/06/starfishspace-logo-fullcolor.png
 url: https://raw.githubusercontent.com/api-evangelist/starfish-space/refs/heads/main/apis.yml
 x-type: company
