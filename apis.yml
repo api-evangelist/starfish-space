@@ -288,7 +288,7 @@ apis:
   humanURL: https://www.starfishspace.com/
   baseURL: https://www.starfishspace.com/wp-json/wp/v2
   tags:
-  - Menu Items
+  - menu-items
   tags_raw:
   - menu-items
   properties:
