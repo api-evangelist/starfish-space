@@ -21,6 +21,20 @@ deliveryModel:
   - openapi
   generated: '2026-08-28'
   method: derived
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source:
+  - authentication
+  - scopes
+  - security
+  generated: '2026-09-03'
+  method: derived
 image: https://www.starfishspace.com/wp-content/uploads/2023/06/starfishspace-logo-fullcolor.png
 url: https://raw.githubusercontent.com/api-evangelist/starfish-space/refs/heads/main/apis.yml
 x-type: company
