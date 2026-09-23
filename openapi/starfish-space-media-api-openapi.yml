@@ -1,11 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Starfish Space Website Content API (WordPress REST v2) Media API
+  title: Starfish Space Website Content API (WordPress REST v2)…
   version: '2'
-  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
-
-
-    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  description: The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2.
   contact:
     name: Starfish Space
     url: https://www.starfishspace.com/contact/
@@ -16,14 +13,14 @@ servers:
 - url: https://www.starfishspace.com/wp-json
   description: Production
 tags:
-- name: media
+- name: Media
   description: Media library attachments (images, documents).
 paths:
   /wp/v2/media:
     get:
       operationId: listMedia
       tags:
-      - media
+      - Media
       summary: List media
       description: Retrieve a collection of media from the Starfish Space WordPress REST API.
       parameters:
@@ -279,7 +276,7 @@ paths:
     post:
       operationId: createMedia
       tags:
-      - media
+      - Media
       summary: Create or update media
       description: Create or update a media via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters: []
@@ -434,7 +431,7 @@ paths:
     get:
       operationId: getMediaById
       tags:
-      - media
+      - Media
       summary: Retrieve a single media
       description: Retrieve a single media by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -489,7 +486,7 @@ paths:
     post:
       operationId: createMediaById
       tags:
-      - media
+      - Media
       summary: Create or update media
       description: Create or update a media via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -649,7 +646,7 @@ paths:
     put:
       operationId: updateMediaById
       tags:
-      - media
+      - Media
       summary: Update media
       description: Update a media via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -809,7 +806,7 @@ paths:
     patch:
       operationId: updateMediaById2
       tags:
-      - media
+      - Media
       summary: Update media
       description: Update a media via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -969,7 +966,7 @@ paths:
     delete:
       operationId: deleteMediaById
       tags:
-      - media
+      - Media
       summary: Delete media
       description: Delete a media via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -1024,7 +1021,7 @@ paths:
     post:
       operationId: createMediaByIdEdit
       tags:
-      - media
+      - Media
       summary: Create or update media
       description: Create or update a media via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -1246,7 +1243,7 @@ paths:
     post:
       operationId: createMediaByIdPostProcess
       tags:
-      - media
+      - Media
       summary: Create or update media
       description: Create or update a media via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:

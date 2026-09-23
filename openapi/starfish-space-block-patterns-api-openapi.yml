@@ -1,11 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Starfish Space Website Content API (WordPress REST v2) Block Patterns API
+  title: Starfish Space Website Content API (WordPress REST v2)…
   version: '2'
-  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
-
-
-    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  description: The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2.
   contact:
     name: Starfish Space
     url: https://www.starfishspace.com/contact/
@@ -16,14 +13,14 @@ servers:
 - url: https://www.starfishspace.com/wp-json
   description: Production
 tags:
-- name: block-patterns
+- name: block patterns
   description: Registered block patterns.
 paths:
   /wp/v2/block-patterns/categories:
     get:
       operationId: listBlockPatternsCategories
       tags:
-      - block-patterns
+      - block patterns
       summary: List block patterns
       description: Retrieve a collection of block patterns from the Starfish Space WordPress REST API.
       parameters: []
@@ -62,7 +59,7 @@ paths:
     get:
       operationId: listBlockPatternsPatterns
       tags:
-      - block-patterns
+      - block patterns
       summary: List block patterns
       description: Retrieve a collection of block patterns from the Starfish Space WordPress REST API.
       parameters: []

@@ -1,11 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Starfish Space Website Content API (WordPress REST v2) Widget Types API
+  title: Starfish Space Website Content API (WordPress REST v2)…
   version: '2'
-  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
-
-
-    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  description: The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2.
   contact:
     name: Starfish Space
     url: https://www.starfishspace.com/contact/
@@ -16,14 +13,14 @@ servers:
 - url: https://www.starfishspace.com/wp-json
   description: Production
 tags:
-- name: widget-types
+- name: widget types
   description: Available widget types.
 paths:
   /wp/v2/widget-types:
     get:
       operationId: listWidgetTypes
       tags:
-      - widget-types
+      - widget types
       summary: List widget types
       description: Retrieve a collection of widget types from the Starfish Space WordPress REST API.
       parameters:
@@ -73,7 +70,7 @@ paths:
     get:
       operationId: getWidgetTypesById
       tags:
-      - widget-types
+      - widget types
       summary: Retrieve a single widget type
       description: Retrieve a single widget type by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -129,7 +126,7 @@ paths:
     post:
       operationId: createWidgetTypesByIdEncode
       tags:
-      - widget-types
+      - widget types
       summary: Create or update widget type
       description: Create or update a widget type via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -190,7 +187,7 @@ paths:
     post:
       operationId: createWidgetTypesByIdRender
       tags:
-      - widget-types
+      - widget types
       summary: Create or update widget type
       description: Create or update a widget type via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:

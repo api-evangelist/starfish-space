@@ -1,11 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Starfish Space Website Content API (WordPress REST v2) Comments API
+  title: Starfish Space Website Content API (WordPress REST v2)…
   version: '2'
-  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
-
-
-    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  description: The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2.
   contact:
     name: Starfish Space
     url: https://www.starfishspace.com/contact/
@@ -16,14 +13,14 @@ servers:
 - url: https://www.starfishspace.com/wp-json
   description: Production
 tags:
-- name: comments
+- name: Comments
   description: Comments on site content.
 paths:
   /wp/v2/comments:
     get:
       operationId: listComments
       tags:
-      - comments
+      - Comments
       summary: List comments
       description: Retrieve a collection of comments from the Starfish Space WordPress REST API.
       parameters:
@@ -231,7 +228,7 @@ paths:
     post:
       operationId: createComments
       tags:
-      - comments
+      - Comments
       summary: Create or update comments
       description: Create or update a comment via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters: []
@@ -349,7 +346,7 @@ paths:
     get:
       operationId: getCommentsById
       tags:
-      - comments
+      - Comments
       summary: Retrieve a single comment
       description: Retrieve a single comment by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -410,7 +407,7 @@ paths:
     post:
       operationId: createCommentsById
       tags:
-      - comments
+      - Comments
       summary: Create or update comment
       description: Create or update a comment via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -531,7 +528,7 @@ paths:
     put:
       operationId: updateCommentsById
       tags:
-      - comments
+      - Comments
       summary: Update comment
       description: Update a comment via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -652,7 +649,7 @@ paths:
     patch:
       operationId: updateCommentsById2
       tags:
-      - comments
+      - Comments
       summary: Update comment
       description: Update a comment via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -773,7 +770,7 @@ paths:
     delete:
       operationId: deleteCommentsById
       tags:
-      - comments
+      - Comments
       summary: Delete comment
       description: Delete a comment via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:

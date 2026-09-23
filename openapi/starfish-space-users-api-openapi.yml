@@ -1,11 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Starfish Space Website Content API (WordPress REST v2) Users API
+  title: Starfish Space Website Content API (WordPress REST v2)…
   version: '2'
-  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
-
-
-    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  description: The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2.
   contact:
     name: Starfish Space
     url: https://www.starfishspace.com/contact/
@@ -16,14 +13,14 @@ servers:
 - url: https://www.starfishspace.com/wp-json
   description: Production
 tags:
-- name: users
+- name: Users
   description: Site authors.
 paths:
   /wp/v2/users:
     get:
       operationId: listUsers
       tags:
-      - users
+      - Users
       summary: List users
       description: Retrieve a collection of users from the Starfish Space WordPress REST API.
       parameters:
@@ -216,7 +213,7 @@ paths:
     post:
       operationId: createUsers
       tags:
-      - users
+      - Users
       summary: Create or update users
       description: Create or update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters: []
@@ -330,7 +327,7 @@ paths:
     get:
       operationId: listUsersMe
       tags:
-      - users
+      - Users
       summary: List users
       description: Retrieve a collection of users from the Starfish Space WordPress REST API.
       parameters:
@@ -381,7 +378,7 @@ paths:
     post:
       operationId: createUsersMe
       tags:
-      - users
+      - Users
       summary: Create or update users
       description: Create or update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters: []
@@ -490,7 +487,7 @@ paths:
     put:
       operationId: updateUsersMe
       tags:
-      - users
+      - Users
       summary: Update users
       description: Update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters: []
@@ -599,7 +596,7 @@ paths:
     patch:
       operationId: updateUsersMe2
       tags:
-      - users
+      - Users
       summary: Update users
       description: Update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters: []
@@ -708,7 +705,7 @@ paths:
     delete:
       operationId: deleteUsersMe
       tags:
-      - users
+      - Users
       summary: Delete users
       description: Delete a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -763,7 +760,7 @@ paths:
     get:
       operationId: getUsersById
       tags:
-      - users
+      - Users
       summary: Retrieve a single user
       description: Retrieve a single user by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -818,7 +815,7 @@ paths:
     post:
       operationId: createUsersById
       tags:
-      - users
+      - Users
       summary: Create or update user
       description: Create or update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -933,7 +930,7 @@ paths:
     put:
       operationId: updateUsersById
       tags:
-      - users
+      - Users
       summary: Update user
       description: Update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -1048,7 +1045,7 @@ paths:
     patch:
       operationId: updateUsersById2
       tags:
-      - users
+      - Users
       summary: Update user
       description: Update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -1163,7 +1160,7 @@ paths:
     delete:
       operationId: deleteUsersById
       tags:
-      - users
+      - Users
       summary: Delete user
       description: Delete a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -1224,7 +1221,7 @@ paths:
     get:
       operationId: getUsersByUser_idApplicationPasswords
       tags:
-      - users
+      - Users
       summary: Retrieve a single user
       description: Retrieve a single user by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -1279,7 +1276,7 @@ paths:
     post:
       operationId: createUsersByUser_idApplicationPasswords
       tags:
-      - users
+      - Users
       summary: Create or update user
       description: Create or update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -1349,7 +1346,7 @@ paths:
     delete:
       operationId: deleteUsersByUser_idApplicationPasswords
       tags:
-      - users
+      - Users
       summary: Delete user
       description: Delete a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -1397,7 +1394,7 @@ paths:
     get:
       operationId: getUsersByUser_idApplicationPasswordsIntrospect
       tags:
-      - users
+      - Users
       summary: Retrieve a single user
       description: Retrieve a single user by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -1453,7 +1450,7 @@ paths:
     get:
       operationId: getUsersByUser_idApplicationPasswordsByUuid
       tags:
-      - users
+      - Users
       summary: Retrieve a single user
       description: Retrieve a single user by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -1514,7 +1511,7 @@ paths:
     post:
       operationId: createUsersByUser_idApplicationPasswordsByUuid
       tags:
-      - users
+      - Users
       summary: Create or update user
       description: Create or update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -1588,7 +1585,7 @@ paths:
     put:
       operationId: updateUsersByUser_idApplicationPasswordsByUuid
       tags:
-      - users
+      - Users
       summary: Update user
       description: Update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -1662,7 +1659,7 @@ paths:
     patch:
       operationId: updateUsersByUser_idApplicationPasswordsByUuid2
       tags:
-      - users
+      - Users
       summary: Update user
       description: Update a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -1736,7 +1733,7 @@ paths:
     delete:
       operationId: deleteUsersByUser_idApplicationPasswordsByUuid
       tags:
-      - users
+      - Users
       summary: Delete user
       description: Delete a user via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:

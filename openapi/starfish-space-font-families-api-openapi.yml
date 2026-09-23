@@ -1,11 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Starfish Space Website Content API (WordPress REST v2) Font Families API
+  title: Starfish Space Website Content API (WordPress REST v2) Font…
   version: '2'
-  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
-
-
-    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  description: The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2.
   contact:
     name: Starfish Space
     url: https://www.starfishspace.com/contact/
@@ -16,14 +13,14 @@ servers:
 - url: https://www.starfishspace.com/wp-json
   description: Production
 tags:
-- name: font-families
+- name: font families
   description: Registered font families.
 paths:
   /wp/v2/font-families:
     get:
       operationId: listFontFamilies
       tags:
-      - font-families
+      - font families
       summary: List font families
       description: Retrieve a collection of font families from the Starfish Space WordPress REST API.
       parameters:
@@ -149,7 +146,7 @@ paths:
     post:
       operationId: createFontFamilies
       tags:
-      - font-families
+      - font families
       summary: Create or update font families
       description: Create or update a font familie via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters: []
@@ -209,7 +206,7 @@ paths:
     get:
       operationId: getFontFamiliesByFont_family_idFontFaces
       tags:
-      - font-families
+      - font families
       summary: Retrieve a single font familie
       description: Retrieve a single font familie by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -333,7 +330,7 @@ paths:
     post:
       operationId: createFontFamiliesByFont_family_idFontFaces
       tags:
-      - font-families
+      - font families
       summary: Create or update font familie
       description: Create or update a font familie via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -399,7 +396,7 @@ paths:
     get:
       operationId: getFontFamiliesByFont_family_idFontFacesById
       tags:
-      - font-families
+      - font families
       summary: Retrieve a single font familie
       description: Retrieve a single font familie by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -460,7 +457,7 @@ paths:
     delete:
       operationId: deleteFontFamiliesByFont_family_idFontFacesById
       tags:
-      - font-families
+      - font families
       summary: Delete font familie
       description: Delete a font familie via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -521,7 +518,7 @@ paths:
     get:
       operationId: getFontFamiliesById
       tags:
-      - font-families
+      - font families
       summary: Retrieve a single font familie
       description: Retrieve a single font familie by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -576,7 +573,7 @@ paths:
     post:
       operationId: createFontFamiliesById
       tags:
-      - font-families
+      - font families
       summary: Create or update font familie
       description: Create or update a font familie via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -641,7 +638,7 @@ paths:
     put:
       operationId: updateFontFamiliesById
       tags:
-      - font-families
+      - font families
       summary: Update font familie
       description: Update a font familie via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -706,7 +703,7 @@ paths:
     patch:
       operationId: updateFontFamiliesById2
       tags:
-      - font-families
+      - font families
       summary: Update font familie
       description: Update a font familie via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -771,7 +768,7 @@ paths:
     delete:
       operationId: deleteFontFamiliesById
       tags:
-      - font-families
+      - font families
       summary: Delete font familie
       description: Delete a font familie via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:

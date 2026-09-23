@@ -1,11 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Starfish Space Website Content API (WordPress REST v2) Wp Pattern Category API
+  title: Starfish Space Website Content API (WordPress REST v2) Wp…
   version: '2'
-  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
-
-
-    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  description: The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2.
   contact:
     name: Starfish Space
     url: https://www.starfishspace.com/contact/
@@ -16,14 +13,14 @@ servers:
 - url: https://www.starfishspace.com/wp-json
   description: Production
 tags:
-- name: wp_pattern_category
+- name: Wp Pattern Category
   description: wp_pattern_category routes.
 paths:
   /wp/v2/wp_pattern_category:
     get:
       operationId: listWpPatternCategory
       tags:
-      - wp_pattern_category
+      - Wp Pattern Category
       summary: List wp_pattern_category
       description: Retrieve a collection of wp_pattern_category from the Starfish Space WordPress REST API.
       parameters:
@@ -167,7 +164,7 @@ paths:
     post:
       operationId: createWpPatternCategory
       tags:
-      - wp_pattern_category
+      - Wp Pattern Category
       summary: Create or update wp_pattern_category
       description: Create or update a wp_pattern_category via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters: []
@@ -231,7 +228,7 @@ paths:
     get:
       operationId: getWpPatternCategoryById
       tags:
-      - wp_pattern_category
+      - Wp Pattern Category
       summary: Retrieve a single wp_pattern_category
       description: Retrieve a single wp_pattern_category by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -286,7 +283,7 @@ paths:
     post:
       operationId: createWpPatternCategoryById
       tags:
-      - wp_pattern_category
+      - Wp Pattern Category
       summary: Create or update wp_pattern_category
       description: Create or update a wp_pattern_category via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -353,7 +350,7 @@ paths:
     put:
       operationId: updateWpPatternCategoryById
       tags:
-      - wp_pattern_category
+      - Wp Pattern Category
       summary: Update wp_pattern_category
       description: Update a wp_pattern_category via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -420,7 +417,7 @@ paths:
     patch:
       operationId: updateWpPatternCategoryById2
       tags:
-      - wp_pattern_category
+      - Wp Pattern Category
       summary: Update wp_pattern_category
       description: Update a wp_pattern_category via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -487,7 +484,7 @@ paths:
     delete:
       operationId: deleteWpPatternCategoryById
       tags:
-      - wp_pattern_category
+      - Wp Pattern Category
       summary: Delete wp_pattern_category
       description: Delete a wp_pattern_category via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:

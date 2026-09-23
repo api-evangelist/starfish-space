@@ -1,11 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Starfish Space Website Content API (WordPress REST v2) Menu Locations API
+  title: Starfish Space Website Content API (WordPress REST v2) Menu…
   version: '2'
-  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
-
-
-    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  description: The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2.
   contact:
     name: Starfish Space
     url: https://www.starfishspace.com/contact/
@@ -16,14 +13,14 @@ servers:
 - url: https://www.starfishspace.com/wp-json
   description: Production
 tags:
-- name: menu-locations
+- name: menu locations
   description: Theme menu locations.
 paths:
   /wp/v2/menu-locations:
     get:
       operationId: listMenuLocations
       tags:
-      - menu-locations
+      - menu locations
       summary: List menu locations
       description: Retrieve a collection of menu locations from the Starfish Space WordPress REST API.
       parameters:
@@ -73,7 +70,7 @@ paths:
     get:
       operationId: getMenuLocationsByLocation
       tags:
-      - menu-locations
+      - menu locations
       summary: Retrieve a single menu location
       description: Retrieve a single menu location by route parameter from the Starfish Space WordPress REST API.
       parameters:

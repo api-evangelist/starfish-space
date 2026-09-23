@@ -1,11 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Starfish Space Website Content API (WordPress REST v2) Templates API
+  title: Starfish Space Website Content API (WordPress REST v2)…
   version: '2'
-  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
-
-
-    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  description: The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2.
   contact:
     name: Starfish Space
     url: https://www.starfishspace.com/contact/
@@ -16,14 +13,14 @@ servers:
 - url: https://www.starfishspace.com/wp-json
   description: Production
 tags:
-- name: templates
+- name: Templates
   description: Block theme templates.
 paths:
   /wp/v2/templates:
     get:
       operationId: listTemplates
       tags:
-      - templates
+      - Templates
       summary: List templates
       description: Retrieve a collection of templates from the Starfish Space WordPress REST API.
       parameters:
@@ -90,7 +87,7 @@ paths:
     post:
       operationId: createTemplates
       tags:
-      - templates
+      - Templates
       summary: Create or update templates
       description: Create or update a template via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters: []
@@ -211,7 +208,7 @@ paths:
     get:
       operationId: listTemplatesLookup
       tags:
-      - templates
+      - Templates
       summary: List templates
       description: Retrieve a collection of templates from the Starfish Space WordPress REST API.
       parameters:
@@ -268,7 +265,7 @@ paths:
     get:
       operationId: getTemplatesById
       tags:
-      - templates
+      - Templates
       summary: Retrieve a single template
       description: Retrieve a single template by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -323,7 +320,7 @@ paths:
     post:
       operationId: createTemplatesById
       tags:
-      - templates
+      - Templates
       summary: Create or update template
       description: Create or update a template via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -443,7 +440,7 @@ paths:
     put:
       operationId: updateTemplatesById
       tags:
-      - templates
+      - Templates
       summary: Update template
       description: Update a template via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -563,7 +560,7 @@ paths:
     patch:
       operationId: updateTemplatesById2
       tags:
-      - templates
+      - Templates
       summary: Update template
       description: Update a template via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -683,7 +680,7 @@ paths:
     delete:
       operationId: deleteTemplatesById
       tags:
-      - templates
+      - Templates
       summary: Delete template
       description: Delete a template via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -738,7 +735,7 @@ paths:
     get:
       operationId: getTemplatesByIdAutosaves
       tags:
-      - templates
+      - Templates
       summary: Retrieve a single template
       description: Retrieve a single template by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -793,7 +790,7 @@ paths:
     post:
       operationId: createTemplatesByIdAutosaves
       tags:
-      - templates
+      - Templates
       summary: Create or update template
       description: Create or update a template via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -914,7 +911,7 @@ paths:
     get:
       operationId: getTemplatesByParentAutosavesById
       tags:
-      - templates
+      - Templates
       summary: Retrieve a single template
       description: Retrieve a single template by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -976,7 +973,7 @@ paths:
     get:
       operationId: getTemplatesByParentRevisions
       tags:
-      - templates
+      - Templates
       summary: Retrieve a single template
       description: Retrieve a single template by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -1103,7 +1100,7 @@ paths:
     get:
       operationId: getTemplatesByParentRevisionsById
       tags:
-      - templates
+      - Templates
       summary: Retrieve a single template
       description: Retrieve a single template by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -1164,7 +1161,7 @@ paths:
     delete:
       operationId: deleteTemplatesByParentRevisionsById
       tags:
-      - templates
+      - Templates
       summary: Delete template
       description: Delete a template via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:

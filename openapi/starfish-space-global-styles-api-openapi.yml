@@ -1,11 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Starfish Space Website Content API (WordPress REST v2) Global Styles API
+  title: Starfish Space Website Content API (WordPress REST v2)…
   version: '2'
-  description: 'The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2. Starfish Space is a Tukwila, Washington satellite-servicing company building the Otter spacecraft; this API is the content interface behind starfishspace.com (news/press releases, pages, media, taxonomies), not a spacecraft, telemetry or mission-data API. Read operations are available anonymously; write operations require an authenticated WordPress user.
-
-
-    This document was DERIVED by API Evangelist from documents the API itself publishes: the machine-readable route index at /wp-json/wp/v2 and the item JSON Schemas returned by HTTP OPTIONS on each collection route. No paths, parameters or schema properties were invented.'
+  description: The public WordPress REST API served by Starfish Space at https://www.starfishspace.com/wp-json/wp/v2.
   contact:
     name: Starfish Space
     url: https://www.starfishspace.com/contact/
@@ -16,14 +13,14 @@ servers:
 - url: https://www.starfishspace.com/wp-json
   description: Production
 tags:
-- name: global-styles
+- name: global styles
   description: Global styles.
 paths:
   /wp/v2/global-styles/themes/{stylesheet}:
     get:
       operationId: getGlobalStylesThemesByStylesheet
       tags:
-      - global-styles
+      - global styles
       summary: Retrieve a single global style
       description: Retrieve a single global style by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -68,7 +65,7 @@ paths:
     get:
       operationId: getGlobalStylesThemesByStylesheetVariations
       tags:
-      - global-styles
+      - global styles
       summary: Retrieve a single global style
       description: Retrieve a single global style by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -113,7 +110,7 @@ paths:
     get:
       operationId: getGlobalStylesById
       tags:
-      - global-styles
+      - global styles
       summary: Retrieve a single global style
       description: Retrieve a single global style by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -157,7 +154,7 @@ paths:
     post:
       operationId: createGlobalStylesById
       tags:
-      - global-styles
+      - global styles
       summary: Create or update global style
       description: Create or update a global style via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -240,7 +237,7 @@ paths:
     put:
       operationId: updateGlobalStylesById
       tags:
-      - global-styles
+      - global styles
       summary: Update global style
       description: Update a global style via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -323,7 +320,7 @@ paths:
     patch:
       operationId: updateGlobalStylesById2
       tags:
-      - global-styles
+      - global styles
       summary: Update global style
       description: Update a global style via the Starfish Space WordPress REST API. Requires an authenticated WordPress user with sufficient capabilities.
       parameters:
@@ -407,7 +404,7 @@ paths:
     get:
       operationId: getGlobalStylesByParentRevisions
       tags:
-      - global-styles
+      - global styles
       summary: Retrieve a single global style
       description: Retrieve a single global style by route parameter from the Starfish Space WordPress REST API.
       parameters:
@@ -485,7 +482,7 @@ paths:
     get:
       operationId: getGlobalStylesByParentRevisionsById
       tags:
-      - global-styles
+      - global styles
       summary: Retrieve a single global style
       description: Retrieve a single global style by route parameter from the Starfish Space WordPress REST API.
       parameters:
