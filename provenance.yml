@@ -9,213 +9,9 @@ artifacts:
   authentication/starfish-space-authentication.yml:
     method: derived
     evidence: declared in the artifact
-  collections/starfish-space-block-directory-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-block-directory-api
-  collections/starfish-space-block-directory-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-block-directory-api
-  collections/starfish-space-block-patterns-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-block-patterns-api
-  collections/starfish-space-block-patterns-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-block-patterns-api
-  collections/starfish-space-block-renderer-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-block-renderer-api
-  collections/starfish-space-block-renderer-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-block-renderer-api
-  collections/starfish-space-block-types-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-block-types-api
-  collections/starfish-space-block-types-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-block-types-api
-  collections/starfish-space-blocks-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-blocks-api
-  collections/starfish-space-blocks-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-blocks-api
-  collections/starfish-space-categories-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-categories-api
-  collections/starfish-space-categories-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-categories-api
-  collections/starfish-space-comments-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-comments-api
-  collections/starfish-space-comments-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-comments-api
-  collections/starfish-space-font-collections-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-font-collections-api
-  collections/starfish-space-font-collections-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-font-collections-api
-  collections/starfish-space-font-families-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-font-families-api
-  collections/starfish-space-font-families-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-font-families-api
-  collections/starfish-space-global-styles-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-global-styles-api
-  collections/starfish-space-global-styles-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-global-styles-api
-  collections/starfish-space-icons-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-icons-api
-  collections/starfish-space-icons-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-icons-api
-  collections/starfish-space-media-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-media-api
-  collections/starfish-space-media-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-media-api
-  collections/starfish-space-menu-items-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-menu-items-api
-  collections/starfish-space-menu-items-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-menu-items-api
-  collections/starfish-space-menu-locations-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-menu-locations-api
-  collections/starfish-space-menu-locations-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-menu-locations-api
-  collections/starfish-space-menus-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-menus-api
-  collections/starfish-space-menus-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-menus-api
-  collections/starfish-space-navigation-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-navigation-api
-  collections/starfish-space-navigation-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-navigation-api
-  collections/starfish-space-pages-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-pages-api
-  collections/starfish-space-pages-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-pages-api
-  collections/starfish-space-pattern-directory-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-pattern-directory-api
-  collections/starfish-space-pattern-directory-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-pattern-directory-api
-  collections/starfish-space-plugins-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-plugins-api
-  collections/starfish-space-plugins-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-plugins-api
-  collections/starfish-space-posts-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-posts-api
-  collections/starfish-space-posts-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-posts-api
-  collections/starfish-space-search-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-search-api
-  collections/starfish-space-search-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-search-api
-  collections/starfish-space-settings-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-settings-api
-  collections/starfish-space-settings-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-settings-api
-  collections/starfish-space-sidebars-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-sidebars-api
-  collections/starfish-space-sidebars-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-sidebars-api
-  collections/starfish-space-statuses-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-statuses-api
-  collections/starfish-space-statuses-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-statuses-api
-  collections/starfish-space-tags-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-tags-api
-  collections/starfish-space-tags-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-tags-api
-  collections/starfish-space-taxonomies-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-taxonomies-api
-  collections/starfish-space-taxonomies-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-taxonomies-api
-  collections/starfish-space-template-parts-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-template-parts-api
-  collections/starfish-space-template-parts-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-template-parts-api
-  collections/starfish-space-templates-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-templates-api
-  collections/starfish-space-templates-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-templates-api
-  collections/starfish-space-themes-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-themes-api
-  collections/starfish-space-themes-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-themes-api
-  collections/starfish-space-types-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-types-api
-  collections/starfish-space-types-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-types-api
-  collections/starfish-space-users-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-users-api
-  collections/starfish-space-users-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-users-api
-  collections/starfish-space-widget-types-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-widget-types-api
-  collections/starfish-space-widget-types-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-widget-types-api
-  collections/starfish-space-widgets-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-widgets-api
-  collections/starfish-space-widgets-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-widgets-api
   collections/starfish-space-wordpress-routes.opencollection.json:
     method: derived
     evidence: openapi/starfish-space-wordpress-routes
-  collections/starfish-space-wp-pattern-category-api.opencollection.json:
-    method: derived
-    evidence: openapi/starfish-space-wp-pattern-category-api
-  collections/starfish-space-wp-pattern-category-api.postman_collection.json:
-    method: derived
-    evidence: openapi/starfish-space-wp-pattern-category-api
   conformance/starfish-space-conformance.yml:
     method: derived
     evidence: declared in the artifact
@@ -228,6 +24,9 @@ artifacts:
   errors/starfish-space-problem-types.yml:
     method: derived
     evidence: declared in the artifact
+  front-door-ai/2026-09-17.yml:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/starfish-space-categories.schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -238,9 +37,6 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/starfish-space-pages.schema.json:
-    method: unknown
-    evidence: no authorship recorded
-  json-schema/starfish-space-posts.schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/starfish-space-search.schema.json:
@@ -261,55 +57,7 @@ artifacts:
   json-schema/starfish-space-users.schema.json:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-06T210741.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-07T135032.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-10T093022.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-10T111628.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-11T211707.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-12T193225.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-17T064519.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-19T080027.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-19T082702.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-19T114122.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-20T165047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-20T191845.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-20T205517.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-21T110057.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-24T064859.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-24T171257.yml:
+  kin/checks-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-08-25T125852.yml:
@@ -396,6 +144,123 @@ artifacts:
   kin/score-2026-09-05T072335.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T144739.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T195450.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T211839.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T011047.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T211804.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T224210.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-07T200636.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-07T213054.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-08T214843.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-08T232836.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-10T204815.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-10T222408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T062655.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T080032.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T204651.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T221936.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-13T214537.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T064754.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T210656.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T225847.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-15T211329.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-15T230249.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-16T210549.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-16T225339.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-17T211151.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-17T233623.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-18T205255.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-18T231945.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-19T165737.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-19T193153.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-20T205903.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-20T232958.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-21T211425.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-21T233935.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-22T213221.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-23T000603.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-24T064009.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-24T090406.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-24T161608.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/starfish-space-lifecycle.yml:
     method: derived
     evidence: declared in the artifact
@@ -408,109 +273,7 @@ artifacts:
   mcp/starfish-space-mcp.yml:
     method: searched
     evidence: declared in the artifact
-  openapi/starfish-space-block-directory-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-block-patterns-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-block-renderer-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-block-types-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-blocks-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-categories-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-comments-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-font-collections-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-font-families-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-global-styles-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-icons-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-media-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-menu-items-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-menu-locations-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-menus-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-navigation-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-pages-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-pattern-directory-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-plugins-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-posts-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-search-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-settings-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-sidebars-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-statuses-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-tags-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-taxonomies-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-template-parts-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-templates-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-themes-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-types-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-users-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-widget-types-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-widgets-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/starfish-space-wordpress-routes.json:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/starfish-space-wp-pattern-category-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   overlays/starfish-space-wordpress-overlay.yaml:
